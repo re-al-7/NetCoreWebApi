@@ -29,15 +29,18 @@ namespace Integrate.SisMed.Services.Controllers
         {
             try
             {
-                var rn = new RnVista();
-
+                //instanciamos la RN
+                dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Services.Dal.Modelo.Rn" + id);
                 if (rn == null)
                     return BadRequest();
 
-                var result = rn.ObtenerDatos(id);
+                var result = rn.ObtenerLista();
 
                 //var formattedCustomObject = JsonConvert.SerializeObject(result, Formatting.Indented);
                 //return Ok(formattedCustomObject);
+
+                //En Startup.cs ConfigureServices se define el JSON por defecto
+                //KB: https://stackoverflow.com/questions/42360139/asp-net-core-return-json-with-status-code
                 return Ok(result);
             }
             catch (Exception exp)
