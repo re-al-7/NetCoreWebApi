@@ -1,8 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Integrate.SisMed.Services.Dal.Modelo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Integrate.SisMed.Services.Controllers
 {
@@ -11,34 +18,218 @@ namespace Integrate.SisMed.Services.Controllers
     {
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public string Get()
         {
-            return new string[] { "value1", "value2" };
+            return "1.0";
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(string id)
         {
-            return "value";
+            try
+            {
+                var rn = new RnVista();
+
+                if (rn == null)
+                    return BadRequest();
+
+                var result = rn.ObtenerDatos(id);
+
+                //var formattedCustomObject = JsonConvert.SerializeObject(result, Formatting.Indented);
+                //return Ok(formattedCustomObject);
+                return Ok(result);
+            }
+            catch (Exception exp)
+            {
+                var strMensaje = "";
+                var strCausa = "";
+                var strAccion = "";
+                var strComentario = "";
+                var strOrigen = "";
+                CUtilsApi.CargarError(exp,out strMensaje, out strCausa, out strAccion, out strComentario, out strOrigen);
+                return BadRequest(new
+                {
+                    error = strMensaje,
+                    causa = strCausa,
+                    accion = strAccion,
+                    strComentario = strComentario,
+                    origen = strOrigen
+                });
+            }
+            
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Create([FromBody]JObject value)
         {
+            try
+            {
+                if (value == null)
+                    return BadRequest();
+
+                if (ModelState.IsValid)
+                {
+                    dynamic jsonData = value;
+                    string nombreTabla = jsonData.nombre;
+                    JArray datos = jsonData.datos;
+
+                    //instanciamos la RN
+                    dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Services.Dal.Modelo.Rn" + nombreTabla);
+                    if (rn == null)
+                        return BadRequest();
+
+                    //instanciamos la Entidad
+                    dynamic obj = CUtilsApi.GetInstance("Integrate.SisMed.BusinessObjects.Ent" + nombreTabla);
+                    if (obj == null)
+                        return BadRequest();
+
+                    //Apropiamos valores
+                    foreach (JObject item in datos)
+                    foreach (JProperty property in item.Properties())
+                        obj.GetType().GetProperty(property.Name).SetValue(obj,
+                            rn.GetColumnType(property.Value.ToString(), property.Name.ToString()), null);
+
+                    //Insertamos
+                    rn.Insert(obj);
+
+                    return Ok();
+                }
+                return BadRequest();
+            }
+            catch (Exception exp)
+            {
+                var strMensaje = "";
+                var strCausa = "";
+                var strAccion = "";
+                var strComentario = "";
+                var strOrigen = "";
+                CUtilsApi.CargarError(exp, out strMensaje, out strCausa, out strAccion, out strComentario, out strOrigen);
+                return BadRequest(new
+                {
+                    error = strMensaje,
+                    causa = strCausa,
+                    accion = strAccion,
+                    strComentario = strComentario,
+                    origen = strOrigen
+                });
+            }
+            
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Update(int id, [FromBody]JObject value)
         {
+            try
+            {
+                if (value == null)
+                    return BadRequest();
+                
+                if (ModelState.IsValid)
+                {
+                    dynamic jsonData = value;
+                    string nombreTabla = jsonData.nombre;
+                    JArray datos = jsonData.datos;
+
+                    //instanciamos la RN
+                    dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Services.Dal.Modelo.Rn" + nombreTabla);
+                    if (rn == null)
+                        return BadRequest();
+
+                    //instanciamos la Entidad
+                    dynamic obj = CUtilsApi.GetInstance("Integrate.SisMed.BusinessObjects.Ent" + nombreTabla);
+                    if (obj == null)
+                        return BadRequest();
+
+                    //Verificamos que el objeto exista
+                    obj = rn.ObtenerObjeto(id);
+                    if (obj == null)
+                        return NotFound();
+
+                    //Apropiamos valores
+                    foreach (JObject item in datos)
+                    foreach (JProperty property in item.Properties())
+                        obj.GetType().GetProperty(property.Name).SetValue(obj,
+                            rn.GetColumnType(property.Value.ToString(), property.Name.ToString()), null);
+
+                    rn.Update(obj, true);
+                    return new OkResult();
+                }
+                return BadRequest();
+            }
+            catch (Exception exp)
+            {
+                var strMensaje = "";
+                var strCausa = "";
+                var strAccion = "";
+                var strComentario = "";
+                var strOrigen = "";
+                CUtilsApi.CargarError(exp, out strMensaje, out strCausa, out strAccion, out strComentario, out strOrigen);
+                return BadRequest(new
+                {
+                    error = strMensaje,
+                    causa = strCausa,
+                    accion = strAccion,
+                    strComentario = strComentario,
+                    origen = strOrigen
+                });
+            }
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id, [FromBody]JObject value)
         {
+            try
+            {
+                if (value == null)
+                    return BadRequest();
+
+                if (ModelState.IsValid)
+                {
+                    dynamic jsonData = value;
+                    string nombreTabla = jsonData.nombre;
+                    JArray datos = jsonData.datos;
+
+                    //instanciamos la RN
+                    dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Services.Dal.Modelo.Rn" + nombreTabla);
+                    if (rn == null)
+                        return BadRequest();
+
+                    //instanciamos la Entidad
+                    dynamic obj = CUtilsApi.GetInstance("Integrate.SisMed.BusinessObjects.Ent" + nombreTabla);
+                    if (obj == null)
+                        return BadRequest();
+
+                    //Verificamos que el objeto exista
+                    obj = rn.ObtenerObjeto(id);
+                    if (obj == null)
+                        return NotFound();
+
+                    rn.Delete(obj, true);
+                    return new OkResult();
+                }
+                return BadRequest();
+            }
+            catch (Exception exp)
+            {
+                var strMensaje = "";
+                var strCausa = "";
+                var strAccion = "";
+                var strComentario = "";
+                var strOrigen = "";
+                CUtilsApi.CargarError(exp, out strMensaje, out strCausa, out strAccion, out strComentario, out strOrigen);
+                return BadRequest(new
+                {
+                    error = strMensaje,
+                    causa = strCausa,
+                    accion = strAccion,
+                    strComentario = strComentario,
+                    origen = strOrigen
+                });
+            }
         }
     }
 }

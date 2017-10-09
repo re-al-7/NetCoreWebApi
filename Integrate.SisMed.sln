@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integrate.SisMed.Services", "Integrate.SisMed.Services\Integrate.SisMed.Services.csproj", "{9BF03346-5B0E-46B1-BFF6-D67F39DB5C58}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integrate.SisMed.BusinessObjects", "Integrate.SisMed.BusinessObjects\Integrate.SisMed.BusinessObjects.csproj", "{CBBC90D1-CF56-45D2-AEFD-817CC725AABD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9BF03346-5B0E-46B1-BFF6-D67F39DB5C58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BF03346-5B0E-46B1-BFF6-D67F39DB5C58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BF03346-5B0E-46B1-BFF6-D67F39DB5C58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBBC90D1-CF56-45D2-AEFD-817CC725AABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBBC90D1-CF56-45D2-AEFD-817CC725AABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBBC90D1-CF56-45D2-AEFD-817CC725AABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBBC90D1-CF56-45D2-AEFD-817CC725AABD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
