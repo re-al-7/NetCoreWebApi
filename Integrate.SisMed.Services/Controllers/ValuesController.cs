@@ -14,10 +14,12 @@ using Newtonsoft.Json.Linq;
 namespace Integrate.SisMed.Services.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class ValuesController : Controller
     {
         // GET api/values
         [HttpGet]
+        [Authorize]
         public string Get()
         {
             return "1.0";

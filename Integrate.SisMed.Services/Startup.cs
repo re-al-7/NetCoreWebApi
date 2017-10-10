@@ -1,31 +1,77 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
+using System.Text;
 using System.Threading.Tasks;
+using Integrate.SisMed.Services.CustomTokenProvider;
+using Integrate.SisMed.Services.ExtensionMethods;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Integrate.SisMed.Services
 {
-    public class Startup
+    public partial class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+
+            Configuration = builder.Build();
+
+            _signingKey =
+                new SymmetricSecurityKey(
+                    Encoding.ASCII.GetBytes(Configuration.GetSection("TokenAuthentication:SecretKey").Value));
+
+            _tokenValidationParameters = new TokenValidationParameters
+            {
+                // The signing key must match!
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = _signingKey,
+                // Validate the JWT Issuer (iss) claim
+                ValidateIssuer = true,
+                ValidIssuer = Configuration.GetSection("TokenAuthentication:Issuer").Value,
+                // Validate the JWT Audience (aud) claim
+                ValidateAudience = true,
+                ValidAudience = Configuration.GetSection("TokenAuthentication:Audience").Value,
+                // Validate the token expiry
+                ValidateLifetime = true,
+                // If you want to allow a certain amount of clock drift, set that here:
+                ClockSkew = TimeSpan.Zero
+            };
+
+
+            _tokenProviderOptions = new TokenProviderOptions
+            {
+                Path = Configuration.GetSection("TokenAuthentication:TokenPath").Value,
+                Audience = Configuration.GetSection("TokenAuthentication:Audience").Value,
+                Issuer = Configuration.GetSection("TokenAuthentication:Issuer").Value,
+                SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256),
+                IdentityResolver = GetIdentity
+            };
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // Build a customized MVC implementation, without using the default AddMvc(), instead use AddMvcCore().
             // https://github.com/aspnet/Mvc/blob/dev/src/Microsoft.AspNetCore.Mvc/MvcServiceCollectionExtensions.cs
-
+            /*
             services
                 .AddMvcCore(options =>
                 {
@@ -44,6 +90,10 @@ namespace Integrate.SisMed.Services
                 //.AddDataAnnotations()
                 //.AddCors()
                 .AddJsonFormatters(); // JSON, or you can build your own custom one (above)
+            */
+            //KB:      
+            services.AddMvc();
+            ConfigureAuth(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,8 +103,14 @@ namespace Integrate.SisMed.Services
             {
                 app.UseDeveloperExceptionPage();
             }
+            //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            //loggerFactory.AddDebug();
 
+            app.UseTokenProvider(_tokenProviderOptions);
+            app.UseAuthentication();
             app.UseMvc();
+            
+            
         }
     }
 }
