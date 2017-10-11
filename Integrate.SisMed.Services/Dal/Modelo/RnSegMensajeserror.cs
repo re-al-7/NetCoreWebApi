@@ -236,7 +236,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				arrColumnas.Add(EntSegMensajeserror.Fields.fecmodsme.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count == 1)
 				{
@@ -317,7 +317,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				}
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count == 1)
 				{
@@ -542,7 +542,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				}
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
 				
 				if (table.Rows.Count == 1)
 				{
@@ -714,7 +714,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				arrColumnas.Add(EntSegMensajeserror.Fields.fecmodsme.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -861,7 +861,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				arrColumnas.Add(EntSegMensajeserror.Fields.fecmodsme.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -1007,7 +1007,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				}
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -1094,7 +1094,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				}
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -1190,7 +1190,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				arrColumnas.Add("*");
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + strVista, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + strVista, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -1264,7 +1264,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				}
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + strVista, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + strVista, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -1418,7 +1418,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				arrColumnas.Add("*");
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + strVista, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + strVista, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -1502,7 +1502,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				}
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + strVista, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + strVista, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -1680,7 +1680,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				arrColumnas.Add(EntSegMensajeserror.Fields.fecmodsme.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -1827,7 +1827,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				arrColumnas.Add(EntSegMensajeserror.Fields.fecmodsme.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -1990,7 +1990,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				arrColumnas.Add(EntSegMensajeserror.Fields.fecmodsme.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -2137,7 +2137,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				arrColumnas.Add(EntSegMensajeserror.Fields.fecmodsme.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -2310,7 +2310,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				arrValoresWhere.Add("'2'");
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere);
 				
 				return table;
 			}
@@ -2561,7 +2561,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 			try
 			{
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParametrosAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParametrosAdicionales);
 				
 				return table;
 			}
@@ -2606,7 +2606,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				}
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParametrosAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParametrosAdicionales);
 				
 				return table;
 			}
@@ -2825,7 +2825,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 			try
 			{
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableOr(CParametros.schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParametrosAdicionales);
+				DataTable table = local.cargarDataTableOr(CParametros.Schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParametrosAdicionales);
 				
 				return table;
 			}
@@ -3075,7 +3075,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				arrColumnas.Add(EntSegMensajeserror.Fields.fecmodsme.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -3222,7 +3222,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				arrColumnas.Add(EntSegMensajeserror.Fields.fecmodsme.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -3352,7 +3352,7 @@ public dynamic GetDato(ref EntSegMensajeserror obj, string strPropiedad)
 				arrColumnas.Add(EntSegMensajeserror.Fields.fecmodsme.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegMensajeserror.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count > 0)
 				{

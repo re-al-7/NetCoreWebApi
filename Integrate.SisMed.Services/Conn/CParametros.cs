@@ -2,42 +2,40 @@ namespace Integrate.SisMed.Services.Conn
 {
     static public class CParametros
     {
-        private enum miEntornoEnum
+        private enum MiEntornoEnum
         {
-            LOCAL
+            Local
         }
 
-        private const miEntornoEnum miEntorno = miEntornoEnum.LOCAL;
+        private const MiEntornoEnum MiEntorno = MiEntornoEnum.Local;
 
         //Constructor
         static CParametros()
         {
-            switch (miEntorno)
+            switch (MiEntorno)
             {
-                case miEntornoEnum.LOCAL:           
-                    bChangeUserOnLogon = true;
-                    bUseIntegratedSecurity = false;
-                    server = "127.0.0.1";
-                    puerto = "5432";
-                    defaultUser = "postgres";
-                    defaultPass = "Desa2016";
-                    schema = "";
-                    bd = "db_sismed";
+                case MiEntornoEnum.Local:           
+                    BChangeUserOnLogon = true;
+                    BUseIntegratedSecurity = false;
+                    Server = "127.0.0.1";
+                    Puerto = "5432";
+                    User = "postgres";
+                    Pass = "Desa2016";
+                    Schema = "";
+                    Bd = "db_sismed";
                     break;
             }
         }
 
         //Parametros de conexion
-        public static bool bChangeUserOnLogon;
-        public static bool bUseIntegratedSecurity;
-        public static string server;
-        public static string puerto;
-        public static string defaultUser;
-        public static string user;
-        public static string defaultPass;
-        public static string pass;
-        public static string schema;
-        public static string bd;
+        public static bool BChangeUserOnLogon;
+        public static bool BUseIntegratedSecurity;
+        public static string Server;
+        public static string Puerto;
+        public static string User;
+        public static string Pass;
+        public static string Schema;
+        public static string Bd;
 
         //Otros parametros
         public static string ParFormatoFechaHora = "dd/MM/yyyy HH:mm:ss.ffffff";

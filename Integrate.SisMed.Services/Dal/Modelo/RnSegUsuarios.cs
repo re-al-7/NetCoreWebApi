@@ -240,7 +240,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				arrColumnas.Add(EntSegUsuarios.Fields.fecmodsus.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count == 1)
 				{
@@ -321,7 +321,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				}
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count == 1)
 				{
@@ -544,7 +544,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				}
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
 				
 				if (table.Rows.Count == 1)
 				{
@@ -716,7 +716,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				arrColumnas.Add(EntSegUsuarios.Fields.fecmodsus.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -863,7 +863,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				arrColumnas.Add(EntSegUsuarios.Fields.fecmodsus.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -1009,7 +1009,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				}
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -1096,7 +1096,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				}
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -1192,7 +1192,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				arrColumnas.Add("*");
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + strVista, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + strVista, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -1266,7 +1266,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				}
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + strVista, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + strVista, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -1420,7 +1420,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				arrColumnas.Add("*");
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + strVista, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + strVista, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -1504,7 +1504,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				}
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + strVista, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + strVista, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -1682,7 +1682,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				arrColumnas.Add(EntSegUsuarios.Fields.fecmodsus.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -1829,7 +1829,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				arrColumnas.Add(EntSegUsuarios.Fields.fecmodsus.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -1992,7 +1992,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				arrColumnas.Add(EntSegUsuarios.Fields.fecmodsus.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -2139,7 +2139,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				arrColumnas.Add(EntSegUsuarios.Fields.fecmodsus.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -2312,7 +2312,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				arrValoresWhere.Add("'2'");
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere);
 				
 				return table;
 			}
@@ -2563,7 +2563,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 			try
 			{
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParametrosAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParametrosAdicionales);
 				
 				return table;
 			}
@@ -2608,7 +2608,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				}
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParametrosAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParametrosAdicionales);
 				
 				return table;
 			}
@@ -2827,7 +2827,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 			try
 			{
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableOr(CParametros.schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParametrosAdicionales);
+				DataTable table = local.cargarDataTableOr(CParametros.Schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParametrosAdicionales);
 				
 				return table;
 			}
@@ -3077,7 +3077,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				arrColumnas.Add(EntSegUsuarios.Fields.fecmodsus.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -3224,7 +3224,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				arrColumnas.Add(EntSegUsuarios.Fields.fecmodsus.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales, ref localTrans);
 				
 				if (table.Rows.Count > 0)
 				{
@@ -3354,7 +3354,7 @@ namespace Integrate.SisMed.Services.Dal.Modelo
 				arrColumnas.Add(EntSegUsuarios.Fields.fecmodsus.ToString());
 				
 				CConn local = new CConn();
-				DataTable table = local.cargarDataTableAnd(CParametros.schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
+				DataTable table = local.cargarDataTableAnd(CParametros.Schema + EntSegUsuarios.StrNombreTabla, arrColumnas, arrColumnasWhere, arrValoresWhere, strParamAdicionales);
 				
 				if (table.Rows.Count > 0)
 				{

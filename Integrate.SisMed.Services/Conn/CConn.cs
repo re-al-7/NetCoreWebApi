@@ -29,27 +29,38 @@ namespace Integrate.SisMed.Services.Conn
         /// </summary>
         public CConn()
         {
-
-            if (!AppHttpContext.Current.User.Identity.IsAuthenticated)
+            if (CParametros.BChangeUserOnLogon)
             {
-                conexionBD.ConnectionString = "Server=" + CParametros.server +
-                                                    ";Database=" + CParametros.bd +
-                                                    ";User ID=" + CParametros.defaultUser +
-                                                    ";Port=" + CParametros.puerto +
-                                                    ";Password=" + CParametros.defaultPass +
-                                                    ";Pooling=false;CommandTimeout=9000000 ";
+                if (!AppHttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    conexionBD.ConnectionString = "Server=" + CParametros.Server +
+                                                  ";Database=" + CParametros.Bd +
+                                                  ";User ID=" + CParametros.User +
+                                                  ";Port=" + CParametros.Puerto +
+                                                  ";Password=" + CParametros.Pass +
+                                                  ";Pooling=false;CommandTimeout=9000000 ";
+                }
+                else
+                {
+                    var strUsuario = AppHttpContext.Current.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                    var strPassword = CUtilsApi.generarMD5(strUsuario).ToUpper();
+
+                    conexionBD.ConnectionString = "Server=" + CParametros.Server +
+                                                  ";Database=" + CParametros.Bd +
+                                                  ";User ID=" + strUsuario +
+                                                  ";Port=" + CParametros.Puerto +
+                                                  ";Password=" + strPassword +
+                                                  ";Pooling=false;CommandTimeout=9000000";
+                }
             }
             else
             {
-                var strUsuario = AppHttpContext.Current.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                var strPassword = CUtilsApi.generarMD5(strUsuario).ToUpper();
-
-                conexionBD.ConnectionString = "Server=" + CParametros.server +
-                                                ";Database=" + CParametros.bd +
-                                                ";User ID=" + strUsuario +
-                                                ";Port=" + CParametros.puerto +
-                                                ";Password=" + strPassword +
-                                                ";Pooling=false;CommandTimeout=9000000";
+                conexionBD.ConnectionString = "Server=" + CParametros.Server +
+                                              ";Database=" + CParametros.Bd +
+                                              ";User ID=" + CParametros.User +
+                                              ";Port=" + CParametros.Puerto +
+                                              ";Password=" + CParametros.Pass +
+                                              ";Pooling=false;CommandTimeout=9000000 ";
             }
         }
 
