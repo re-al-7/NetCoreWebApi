@@ -4,9 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Integrate.SisMed.Services.Dal.Modelo;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -17,6 +19,11 @@ namespace Integrate.SisMed.Services.Controllers
     [Authorize]
     public class ValuesController : Controller
     {
+        public ValuesController(IHttpContextAccessor httpContextAccessor)
+        {
+            string strUserName = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        }
+
         // GET api/values
         [HttpGet]
         [Authorize]

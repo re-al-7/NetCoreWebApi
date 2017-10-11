@@ -4,8 +4,11 @@ using System.Collections;
 using System.Data.Common;
 using System.Text;
 using System.Data;
+using System.Security.Claims;
+using Integrate.SisMed.Services.ExtensionMethods;
 using Npgsql;
 using NpgsqlTypes;
+using Microsoft.AspNetCore.Http;
 #endregion
 
 namespace Integrate.SisMed.Services.Conn
@@ -13,7 +16,7 @@ namespace Integrate.SisMed.Services.Conn
     public class CConn
     {
         public NpgsqlConnection conexionBD = new NpgsqlConnection();
-
+     
         private enumTipoConexion _TipoConexion = enumTipoConexion.useDataReader;
         private enum enumTipoConexion
         {
@@ -26,22 +29,26 @@ namespace Integrate.SisMed.Services.Conn
         /// </summary>
         public CConn()
         {
-            if (string.IsNullOrEmpty(CParametros.user))
+
+            if (!AppHttpContext.Current.User.Identity.IsAuthenticated)
             {
                 conexionBD.ConnectionString = "Server=" + CParametros.server +
                                                     ";Database=" + CParametros.bd +
-                                                    ";User ID=" + CParametros.user +
+                                                    ";User ID=" + CParametros.defaultUser +
                                                     ";Port=" + CParametros.puerto +
-                                                    ";Password=" + CParametros.pass +
+                                                    ";Password=" + CParametros.defaultPass +
                                                     ";Pooling=false;CommandTimeout=9000000 ";
             }
             else
             {
+                var strUsuario = AppHttpContext.Current.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var strPassword = CUtilsApi.generarMD5(strUsuario).ToUpper();
+
                 conexionBD.ConnectionString = "Server=" + CParametros.server +
                                                 ";Database=" + CParametros.bd +
-                                                ";User ID=" + CParametros.user +
+                                                ";User ID=" + strUsuario +
                                                 ";Port=" + CParametros.puerto +
-                                                ";Password=" + CParametros.pass +
+                                                ";Password=" + strPassword +
                                                 ";Pooling=false;CommandTimeout=9000000";
             }
         }
@@ -4755,7 +4762,7 @@ namespace Integrate.SisMed.Services.Conn
                                     //command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador].ToString(), arrParametros[intContador]));
                                     command.Parameters.Add(new NpgsqlParameter("@" + intContador,
                                                                                arrParametros[intContador]));
-                                    command.Parameters["@" + intContador].NpgsqlDbType = NpgsqlDbType.Text;
+                                    command.Parameters["@" + intContador].NpgsqlDbType = NpgsqlDbType.Char;
                                 }
                                 break;
                             case "System.DateTime":
@@ -4893,7 +4900,7 @@ namespace Integrate.SisMed.Services.Conn
                                     //command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador].ToString(), arrParametros[intContador]));
                                     command.Parameters.Add(new NpgsqlParameter("@" + intContador,
                                                                                arrParametros[intContador]));
-                                    command.Parameters["@" + intContador].NpgsqlDbType = NpgsqlDbType.Text;
+                                    command.Parameters["@" + intContador].NpgsqlDbType = NpgsqlDbType.Char;
                                 }
                                 break;
                             case "System.DateTime":
@@ -4988,7 +4995,7 @@ namespace Integrate.SisMed.Services.Conn
                         if (intContador == 0)
                             command.Parameters["@" + arrNombreParametros[intContador]].NpgsqlDbType = NpgsqlDbType.Integer;
                         else
-                            command.Parameters["@" + arrNombreParametros[intContador]].NpgsqlDbType = NpgsqlDbType.Text;
+                            command.Parameters["@" + arrNombreParametros[intContador]].NpgsqlDbType = NpgsqlDbType.Char;
                     }
                     else
                     {
@@ -5008,14 +5015,14 @@ namespace Integrate.SisMed.Services.Conn
                             case "System.Int32":
                                 if (arrParametros[intContador] == null)
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                DBNull.Value));
                                 }
                                 else
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                arrParametros[intContador]));
@@ -5024,14 +5031,14 @@ namespace Integrate.SisMed.Services.Conn
                             case "System.Int64":
                                 if (arrParametros[intContador] == null)
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                DBNull.Value));
                                 }
                                 else
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                arrParametros[intContador]));
@@ -5063,7 +5070,7 @@ namespace Integrate.SisMed.Services.Conn
                                     //command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador].ToString(), arrParametros[intContador]));
                                     command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador],
                                                                                arrParametros[intContador]));
-                                    command.Parameters["@" + arrNombreParametros[intContador]].NpgsqlDbType = NpgsqlDbType.Text;
+                                    command.Parameters["@" + arrNombreParametros[intContador]].NpgsqlDbType = NpgsqlDbType.Char;
                                 }
                                 break;
                             case "System.DateTime":
@@ -5182,14 +5189,14 @@ namespace Integrate.SisMed.Services.Conn
                             case "System.Int32":
                                 if (arrParametros[intContador] == null)
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                DBNull.Value));
                                 }
                                 else
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                arrParametros[intContador]));
@@ -5221,7 +5228,7 @@ namespace Integrate.SisMed.Services.Conn
                                     //command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador].ToString(), arrParametros[intContador]));
                                     command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador],
                                                                                arrParametros[intContador]));
-                                    command.Parameters["@" + arrNombreParametros[intContador]].NpgsqlDbType = NpgsqlDbType.Text;
+                                    command.Parameters["@" + arrNombreParametros[intContador]].NpgsqlDbType = NpgsqlDbType.Char;
                                 }
                                 break;
                             case "System.DateTime":
@@ -5379,7 +5386,7 @@ namespace Integrate.SisMed.Services.Conn
                                     //command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador].ToString(), arrParametros[intContador]));
                                     command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador],
                                                                                arrParametros[intContador]));
-                                    command.Parameters["@" + arrNombreParametros[intContador]].NpgsqlDbType = NpgsqlDbType.Text;
+                                    command.Parameters["@" + arrNombreParametros[intContador]].NpgsqlDbType = NpgsqlDbType.Char;
                                 }
                                 break;
                             case "System.DateTime":
@@ -5558,7 +5565,7 @@ namespace Integrate.SisMed.Services.Conn
                                         new NpgsqlParameter("@" + arrNombreParametros[intContador].ToString(),
                                                             arrParametros[intContador]));
                                     command.Parameters["@" + arrNombreParametros[intContador].ToString()].NpgsqlDbType =
-                                        NpgsqlDbType.Text;
+                                        NpgsqlDbType.Char;
                                 }
                                 break;
                             case "System.DateTime":
@@ -5605,7 +5612,7 @@ namespace Integrate.SisMed.Services.Conn
                                         new NpgsqlParameter("@" + arrNombreParametros[intContador].ToString(),
                                                             arrParametros[intContador]));
                                     command.Parameters["@" + arrNombreParametros[intContador].ToString()].NpgsqlDbType =
-                                        NpgsqlDbType.Text;
+                                        NpgsqlDbType.Char;
                                 }
                                 break;
                         }
@@ -5750,14 +5757,14 @@ namespace Integrate.SisMed.Services.Conn
                             case "System.Int32":
                                 if (arrParametros[intContador] == null)
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + intContador, NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + intContador, NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                DBNull.Value));
                                 }
                                 else
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + intContador, NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + intContador, NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                arrParametros[intContador]));
@@ -5789,7 +5796,7 @@ namespace Integrate.SisMed.Services.Conn
                                     //command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador].ToString(), arrParametros[intContador]));
                                     command.Parameters.Add(new NpgsqlParameter("@" + intContador,
                                                                                arrParametros[intContador]));
-                                    command.Parameters["@" + intContador].NpgsqlDbType = NpgsqlDbType.Text;
+                                    command.Parameters["@" + intContador].NpgsqlDbType = NpgsqlDbType.Char;
                                 }
                                 break;
                             case "System.DateTime":
@@ -5881,14 +5888,14 @@ namespace Integrate.SisMed.Services.Conn
                             case "System.Int32":
                                 if (arrParametros[intContador] == null)
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + intContador, NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + intContador, NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                DBNull.Value));
                                 }
                                 else
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + intContador, NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + intContador, NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                arrParametros[intContador]));
@@ -5920,7 +5927,7 @@ namespace Integrate.SisMed.Services.Conn
                                     //command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador].ToString(), arrParametros[intContador]));
                                     command.Parameters.Add(new NpgsqlParameter("@" + intContador,
                                                                                arrParametros[intContador]));
-                                    command.Parameters["@" + intContador].NpgsqlDbType = NpgsqlDbType.Text;
+                                    command.Parameters["@" + intContador].NpgsqlDbType = NpgsqlDbType.Char;
                                 }
                                 break;
                             case "System.DateTime":
@@ -6016,14 +6023,14 @@ namespace Integrate.SisMed.Services.Conn
                             case "System.Int32":
                                 if (arrParametros[intContador] == null)
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                DBNull.Value));
                                 }
                                 else
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                arrParametros[intContador]));
@@ -6055,7 +6062,7 @@ namespace Integrate.SisMed.Services.Conn
                                     //command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador].ToString(), arrParametros[intContador]));
                                     command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador],
                                                                                arrParametros[intContador]));
-                                    command.Parameters["@" + arrNombreParametros[intContador]].NpgsqlDbType = NpgsqlDbType.Text;
+                                    command.Parameters["@" + arrNombreParametros[intContador]].NpgsqlDbType = NpgsqlDbType.Char;
                                 }
                                 break;
                             case "System.DateTime":
@@ -6159,14 +6166,14 @@ namespace Integrate.SisMed.Services.Conn
                             case "System.Int32":
                                 if (arrParametros[intContador] == null)
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                DBNull.Value));
                                 }
                                 else
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                arrParametros[intContador]));
@@ -6198,7 +6205,7 @@ namespace Integrate.SisMed.Services.Conn
                                     //command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador].ToString(), arrParametros[intContador]));
                                     command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador],
                                                                                arrParametros[intContador]));
-                                    command.Parameters["@" + arrNombreParametros[intContador]].NpgsqlDbType = NpgsqlDbType.Text;
+                                    command.Parameters["@" + arrNombreParametros[intContador]].NpgsqlDbType = NpgsqlDbType.Char;
                                 }
                                 break;
                             case "System.DateTime":
@@ -6359,14 +6366,14 @@ namespace Integrate.SisMed.Services.Conn
                             case "System.Int32":
                                 if (arrParametros[intContador] == null)
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + intContador, NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + intContador, NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                DBNull.Value));
                                 }
                                 else
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + intContador, NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + intContador, NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                arrParametros[intContador]));
@@ -6398,7 +6405,7 @@ namespace Integrate.SisMed.Services.Conn
                                     //command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador].ToString(), arrParametros[intContador]));
                                     command.Parameters.Add(new NpgsqlParameter("@" + intContador,
                                                                                arrParametros[intContador]));
-                                    command.Parameters["@" + intContador].NpgsqlDbType = NpgsqlDbType.Text;
+                                    command.Parameters["@" + intContador].NpgsqlDbType = NpgsqlDbType.Char;
                                 }
                                 break;
                             case "System.DateTime":
@@ -6487,14 +6494,14 @@ namespace Integrate.SisMed.Services.Conn
                             case "System.Int32":
                                 if (arrParametros[intContador] == null)
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + intContador, NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + intContador, NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                DBNull.Value));
                                 }
                                 else
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + intContador, NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + intContador, NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                arrParametros[intContador]));
@@ -6526,7 +6533,7 @@ namespace Integrate.SisMed.Services.Conn
                                     //command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador].ToString(), arrParametros[intContador]));
                                     command.Parameters.Add(new NpgsqlParameter("@" + intContador,
                                                                                arrParametros[intContador]));
-                                    command.Parameters["@" + intContador].NpgsqlDbType = NpgsqlDbType.Text;
+                                    command.Parameters["@" + intContador].NpgsqlDbType = NpgsqlDbType.Char;
                                 }
                                 break;
                             case "System.DateTime":
@@ -6618,14 +6625,14 @@ namespace Integrate.SisMed.Services.Conn
                             case "System.Int32":
                                 if (arrParametros[intContador] == null)
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                DBNull.Value));
                                 }
                                 else
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                arrParametros[intContador]));
@@ -6657,7 +6664,7 @@ namespace Integrate.SisMed.Services.Conn
                                     //command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador].ToString(), arrParametros[intContador]));
                                     command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador],
                                                                                arrParametros[intContador]));
-                                    command.Parameters["@" + arrNombreParametros[intContador]].NpgsqlDbType = NpgsqlDbType.Text;
+                                    command.Parameters["@" + arrNombreParametros[intContador]].NpgsqlDbType = NpgsqlDbType.Char;
                                 }
                                 break;
                             case "System.DateTime":
@@ -6758,14 +6765,14 @@ namespace Integrate.SisMed.Services.Conn
                             case "System.Int32":
                                 if (arrParametros[intContador] == null)
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                DBNull.Value));
                                 }
                                 else
                                 {
-                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Numeric, 4, "",
+                                    command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador], NpgsqlDbType.Integer, 4, "",
                                                                                ParameterDirection.Input, false, 0, 0,
                                                                                DataRowVersion.Proposed,
                                                                                arrParametros[intContador]));
@@ -6797,7 +6804,7 @@ namespace Integrate.SisMed.Services.Conn
                                     //command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador].ToString(), arrParametros[intContador]));
                                     command.Parameters.Add(new NpgsqlParameter("@" + arrNombreParametros[intContador],
                                                                                arrParametros[intContador]));
-                                    command.Parameters["@" + arrNombreParametros[intContador]].NpgsqlDbType = NpgsqlDbType.Text;
+                                    command.Parameters["@" + arrNombreParametros[intContador]].NpgsqlDbType = NpgsqlDbType.Char;
                                 }
                                 break;
                             case "System.DateTime":

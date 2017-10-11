@@ -34,7 +34,7 @@ namespace Integrate.SisMed.AppConsole
             using (HttpClient client = new HttpClient())
             {
                 var objUser = new CUserCredentials();
-                objUser.username = "rvera";
+                objUser.username = "deferarib";
                 objUser.password = "Desa2016";
 
                 var formContent = new FormUrlEncodedContent(new[]

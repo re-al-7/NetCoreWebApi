@@ -19,8 +19,8 @@ namespace Integrate.SisMed.Services.Conn
                     bUseIntegratedSecurity = false;
                     server = "127.0.0.1";
                     puerto = "5432";
-                    user = "postgres";
-                    pass = "Desa2016";
+                    defaultUser = "postgres";
+                    defaultPass = "Desa2016";
                     schema = "";
                     bd = "db_sismed";
                     break;
@@ -32,7 +32,9 @@ namespace Integrate.SisMed.Services.Conn
         public static bool bUseIntegratedSecurity;
         public static string server;
         public static string puerto;
+        public static string defaultUser;
         public static string user;
+        public static string defaultPass;
         public static string pass;
         public static string schema;
         public static string bd;

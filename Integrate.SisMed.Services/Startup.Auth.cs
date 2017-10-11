@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 using Integrate.SisMed.BusinessObjects;
 using Integrate.SisMed.Services.CustomTokenProvider;
 using Integrate.SisMed.Services.Dal.Modelo;
+using Integrate.SisMed.Services.ExtensionMethods;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
@@ -52,8 +54,9 @@ namespace Integrate.SisMed.Services
 
 
             if (CUtilsApi.generarMD5(password).ToUpper() == obj.passsus.ToUpper())
+            {
                 return Task.FromResult(new ClaimsIdentity(new GenericIdentity(username, "Token"), new Claim[] { }));
-
+            }
             // Don't do this in production, obviously!
             //if (username == "TEST" && password == "TEST123")
             //{

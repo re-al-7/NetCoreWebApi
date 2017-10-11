@@ -93,6 +93,16 @@ namespace Integrate.SisMed.Services
             */
             //KB:      
             services.AddMvc();
+
+            //Para obtener los usuarios en el constructor del controlador
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            //Para usar sessiones
+            // Adds a default in-memory implementation of IDistributedCache.
+            services.AddDistributedMemoryCache();
+
+            services.AddSession();
+
             ConfigureAuth(services);
         }
 
@@ -108,6 +118,11 @@ namespace Integrate.SisMed.Services
 
             app.UseTokenProvider(_tokenProviderOptions);
             app.UseAuthentication();
+
+            // IMPORTANT: This session call MUST go before UseMvc()
+            app.UseSession();
+            AppHttpContext.Services = app.ApplicationServices;
+
             app.UseMvc();
             
             
