@@ -27,6 +27,7 @@ namespace Integrate.SisMed.Services.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
+        [Authorize]
         public IActionResult Get(string id)
         {
             try
@@ -58,7 +59,7 @@ namespace Integrate.SisMed.Services.Controllers
                     error = strMensaje,
                     causa = strCausa,
                     accion = strAccion,
-                    strComentario = strComentario,
+                    comentario = strComentario,
                     origen = strOrigen
                 });
             }
@@ -67,6 +68,7 @@ namespace Integrate.SisMed.Services.Controllers
 
         // POST api/values
         [HttpPost]
+        [Authorize]
         public IActionResult Create([FromBody]JObject value)
         {
             try
@@ -78,7 +80,10 @@ namespace Integrate.SisMed.Services.Controllers
                 {
                     dynamic jsonData = value;
                     string nombreTabla = jsonData.nombre;
-                    JArray datos = jsonData.datos;
+                    if (nombreTabla == null)
+                        return BadRequest();
+
+                    JObject datos = jsonData.datos;
 
                     //instanciamos la RN
                     dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Services.Dal.Modelo.Rn" + nombreTabla);
@@ -91,8 +96,7 @@ namespace Integrate.SisMed.Services.Controllers
                         return BadRequest();
 
                     //Apropiamos valores
-                    foreach (JObject item in datos)
-                    foreach (JProperty property in item.Properties())
+                    foreach (JProperty property in datos.Properties())
                         obj.GetType().GetProperty(property.Name).SetValue(obj,
                             rn.GetColumnType(property.Value.ToString(), property.Name.ToString()), null);
 
@@ -116,7 +120,7 @@ namespace Integrate.SisMed.Services.Controllers
                     error = strMensaje,
                     causa = strCausa,
                     accion = strAccion,
-                    strComentario = strComentario,
+                    comentario = strComentario,
                     origen = strOrigen
                 });
             }
@@ -136,7 +140,7 @@ namespace Integrate.SisMed.Services.Controllers
                 {
                     dynamic jsonData = value;
                     string nombreTabla = jsonData.nombre;
-                    JArray datos = jsonData.datos;
+                    JObject datos = jsonData.datos;
 
                     //instanciamos la RN
                     dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Services.Dal.Modelo.Rn" + nombreTabla);
@@ -154,8 +158,7 @@ namespace Integrate.SisMed.Services.Controllers
                         return NotFound();
 
                     //Apropiamos valores
-                    foreach (JObject item in datos)
-                    foreach (JProperty property in item.Properties())
+                    foreach (JProperty property in datos.Properties())
                         obj.GetType().GetProperty(property.Name).SetValue(obj,
                             rn.GetColumnType(property.Value.ToString(), property.Name.ToString()), null);
 
@@ -177,7 +180,7 @@ namespace Integrate.SisMed.Services.Controllers
                     error = strMensaje,
                     causa = strCausa,
                     accion = strAccion,
-                    strComentario = strComentario,
+                    comentario = strComentario,
                     origen = strOrigen
                 });
             }
@@ -196,7 +199,7 @@ namespace Integrate.SisMed.Services.Controllers
                 {
                     dynamic jsonData = value;
                     string nombreTabla = jsonData.nombre;
-                    JArray datos = jsonData.datos;
+                    JObject datos = jsonData.datos;
 
                     //instanciamos la RN
                     dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Services.Dal.Modelo.Rn" + nombreTabla);
@@ -231,7 +234,7 @@ namespace Integrate.SisMed.Services.Controllers
                     error = strMensaje,
                     causa = strCausa,
                     accion = strAccion,
-                    strComentario = strComentario,
+                    comentario = strComentario,
                     origen = strOrigen
                 });
             }

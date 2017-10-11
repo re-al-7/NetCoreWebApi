@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integrate.SisMed.AppConsole
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Integrate.SisMed.BusinessObjects", "Integrate.SisMed.BusinessObjects\Integrate.SisMed.BusinessObjects.csproj", "{FB83DA9E-BEC8-477A-87C6-33661AFC84B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integrate.Utils", "Integrate.Utils\Integrate.Utils.csproj", "{9FFB7C9E-8896-4B0B-AB4F-028E2765A301}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{FB83DA9E-BEC8-477A-87C6-33661AFC84B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB83DA9E-BEC8-477A-87C6-33661AFC84B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB83DA9E-BEC8-477A-87C6-33661AFC84B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FFB7C9E-8896-4B0B-AB4F-028E2765A301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FFB7C9E-8896-4B0B-AB4F-028E2765A301}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FFB7C9E-8896-4B0B-AB4F-028E2765A301}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FFB7C9E-8896-4B0B-AB4F-028E2765A301}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

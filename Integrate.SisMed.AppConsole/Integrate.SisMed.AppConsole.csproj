@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Integrate.SisMed.AppConsole</RootNamespace>
     <AssemblyName>Integrate.SisMed.AppConsole</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CApiExcepcion.cs" />
+    <Compile Include="CUtilsApi.cs" />
     <Compile Include="EntSegUsuarios.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,6 +60,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Integrate.Utils\Integrate.Utils.csproj">
+      <Project>{9ffb7c9e-8896-4b0b-ab4f-028e2765a301}</Project>
+      <Name>Integrate.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

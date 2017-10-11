@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-
 namespace Integrate.SisMed.Services
 {
     public partial class Startup
@@ -51,7 +50,8 @@ namespace Integrate.SisMed.Services
             if (obj == null)
                 return Task.FromResult<ClaimsIdentity>(null);
 
-            if (obj.passsus == password)
+
+            if (CUtilsApi.generarMD5(password).ToUpper() == obj.passsus.ToUpper())
                 return Task.FromResult(new ClaimsIdentity(new GenericIdentity(username, "Token"), new Claim[] { }));
 
             // Don't do this in production, obviously!
