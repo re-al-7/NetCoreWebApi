@@ -32,7 +32,7 @@ namespace Integrate.SisMed.AppConsole
 {
 	public class EntSegUsuarios
     {
-		public const string StrNombreTabla = "segusuarios";
+		public const string StrNombreTabla = "SegUsuarios";
 		public const string StrAliasTabla = "Sus";
 		public enum Fields 
 		{
@@ -52,10 +52,22 @@ namespace Integrate.SisMed.AppConsole
 			,fecmodsus
 
 		}
-		
-		#region Constructoress
-		
-		public EntSegUsuarios()
+
+        /// <summary>
+        /// Funcion para obtener un objeto para el API y sus datos
+        /// </summary>        
+        /// <returns>Objeto de tipo CApiObject con los datos para enviar al API</returns>
+        public CApiObject CreateApiObject()
+        {
+            var objApi = new CApiObject();
+            objApi.nombre = EntSegUsuarios.StrNombreTabla;
+            objApi.datos = this;
+            return objApi;
+        }
+
+        #region Constructoress
+
+        public EntSegUsuarios()
 		{
 			//Inicializacion de Variables
 			loginsus = null;

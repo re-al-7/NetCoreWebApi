@@ -15,13 +15,13 @@ namespace Integrate.SisMed.Services.Conn
 {
     public class CConn
     {
-        public NpgsqlConnection conexionBD = new NpgsqlConnection();
+        public NpgsqlConnection ConexionBd = new NpgsqlConnection();
      
-        private enumTipoConexion _TipoConexion = enumTipoConexion.useDataReader;
-        private enum enumTipoConexion
+        private EnumTipoConexion _tipoConexion = EnumTipoConexion.UseDataReader;
+        private enum EnumTipoConexion
         {
-            useDataAdapter,
-            useDataReader
+            UseDataAdapter,
+            UseDataReader
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Integrate.SisMed.Services.Conn
             {
                 if (!AppHttpContext.Current.User.Identity.IsAuthenticated)
                 {
-                    conexionBD.ConnectionString = "Server=" + CParametros.Server +
+                    ConexionBd.ConnectionString = "Server=" + CParametros.Server +
                                                   ";Database=" + CParametros.Bd +
                                                   ";User ID=" + CParametros.User +
                                                   ";Port=" + CParametros.Puerto +
@@ -45,7 +45,7 @@ namespace Integrate.SisMed.Services.Conn
                     var strUsuario = AppHttpContext.Current.User.FindFirst(ClaimTypes.NameIdentifier).Value;
                     var strPassword = CUtilsApi.generarMD5(strUsuario).ToUpper();
 
-                    conexionBD.ConnectionString = "Server=" + CParametros.Server +
+                    ConexionBd.ConnectionString = "Server=" + CParametros.Server +
                                                   ";Database=" + CParametros.Bd +
                                                   ";User ID=" + strUsuario +
                                                   ";Port=" + CParametros.Puerto +
@@ -55,7 +55,7 @@ namespace Integrate.SisMed.Services.Conn
             }
             else
             {
-                conexionBD.ConnectionString = "Server=" + CParametros.Server +
+                ConexionBd.ConnectionString = "Server=" + CParametros.Server +
                                               ";Database=" + CParametros.Bd +
                                               ";User ID=" + CParametros.User +
                                               ";Port=" + CParametros.Puerto +
@@ -84,9 +84,9 @@ namespace Integrate.SisMed.Services.Conn
             dt.Clear();
             try
             {
-                var command = new NpgsqlCommand(query, this.conexionBD);
+                var command = new NpgsqlCommand(query, this.ConexionBd);
 
-                if (_TipoConexion == enumTipoConexion.useDataReader)
+                if (_tipoConexion == EnumTipoConexion.UseDataReader)
                 {
                     if (command.Connection.State == ConnectionState.Closed) command.Connection.Open();
                     DbDataReader dr = command.ExecuteReader(CommandBehavior.CloseConnection);
@@ -136,7 +136,7 @@ namespace Integrate.SisMed.Services.Conn
                 var command = new NpgsqlCommand(query, Trans.MyConn);
                 command.Transaction = Trans.MyTrans;
 
-                if (_TipoConexion == enumTipoConexion.useDataReader)
+                if (_tipoConexion == EnumTipoConexion.UseDataReader)
                 {
                     if (command.Connection.State == ConnectionState.Closed) command.Connection.Open();
                     NpgsqlDataReader dr = (NpgsqlDataReader)command.ExecuteReader(CommandBehavior.Default);
@@ -175,7 +175,7 @@ namespace Integrate.SisMed.Services.Conn
             DbDataReader dr = null;
             try
             {
-                var command = new NpgsqlCommand(query, this.conexionBD);
+                var command = new NpgsqlCommand(query, this.ConexionBd);
                 command.Connection.Open();
 
                 dr = (DbDataReader)command.ExecuteReader(CommandBehavior.CloseConnection);
@@ -244,13 +244,13 @@ namespace Integrate.SisMed.Services.Conn
         {
             try
             {
-                if (this.conexionBD.State == ConnectionState.Closed)
+                if (this.ConexionBd.State == ConnectionState.Closed)
                 {
-                    this.conexionBD.Open();
+                    this.ConexionBd.Open();
                 }
-                var command = new NpgsqlCommand(query, this.conexionBD);
+                var command = new NpgsqlCommand(query, this.ConexionBd);
                 int numReg = command.ExecuteNonQuery();
-                this.conexionBD.Close();
+                this.ConexionBd.Close();
                 command.Connection.Close();
                 command.Dispose();
                 return numReg;
@@ -286,7 +286,7 @@ namespace Integrate.SisMed.Services.Conn
                 command.Transaction = Trans.MyTrans;
                 int numReg = command.ExecuteNonQuery();
                 command.Dispose();
-                this.conexionBD.Close();
+                this.ConexionBd.Close();
                 return numReg;
             }
             catch (Exception ex)
@@ -315,7 +315,7 @@ namespace Integrate.SisMed.Services.Conn
 
             try
             {
-                command.Connection = this.conexionBD;
+                command.Connection = this.ConexionBd;
                 command.ExecuteNonQuery();
                 command.Connection.Close();
                 command.Dispose();
@@ -2298,10 +2298,10 @@ namespace Integrate.SisMed.Services.Conn
                 query = query + ")";
 
 
-                if (this.conexionBD.State == ConnectionState.Closed)
-                    this.conexionBD.Open();
+                if (this.ConexionBd.State == ConnectionState.Closed)
+                    this.ConexionBd.Open();
 
-                var command = new NpgsqlCommand(query, this.conexionBD);
+                var command = new NpgsqlCommand(query, this.ConexionBd);
 
                 //Para soporte de imagenes---------------------------
                 foreach (int posicion in arrPosicionByte)
@@ -2313,7 +2313,7 @@ namespace Integrate.SisMed.Services.Conn
 
                 int numReg = command.ExecuteNonQuery();
                 command.Dispose();
-                this.conexionBD.Close();
+                this.ConexionBd.Close();
                 return (numReg > 0);
             }
             catch (Exception ex)
@@ -2417,7 +2417,7 @@ namespace Integrate.SisMed.Services.Conn
 
                 query = query + "); SELECT ? = @@IDENTITY";
 
-                var command = new NpgsqlCommand(query, this.conexionBD);
+                var command = new NpgsqlCommand(query, this.ConexionBd);
                 //Para soporte de imagenes---------------------------
                 foreach (int posicion in arrPosicionByte)
                 {
@@ -2432,7 +2432,7 @@ namespace Integrate.SisMed.Services.Conn
                 int numReg = command.ExecuteNonQuery();
                 intIdentity = int.Parse(command.Parameters[command.Parameters.Count - 1].Value.ToString());
                 command.Dispose();
-                this.conexionBD.Close();
+                this.ConexionBd.Close();
                 return (numReg > 0);
             }
             catch (Exception ex)
@@ -2547,7 +2547,7 @@ namespace Integrate.SisMed.Services.Conn
                 command.Transaction = Trans.MyTrans;
                 int numReg = command.ExecuteNonQuery();
                 command.Dispose();
-                this.conexionBD.Close();
+                this.ConexionBd.Close();
                 return (numReg > 0);
             }
             catch (Exception ex)
@@ -2673,7 +2673,7 @@ namespace Integrate.SisMed.Services.Conn
                 int numReg = command.ExecuteNonQuery();
                 intIdentity = int.Parse(command.Parameters[command.Parameters.Count - 1].Value.ToString());
                 command.Dispose();
-                this.conexionBD.Close();
+                this.ConexionBd.Close();
                 return (numReg > 0);
             }
             catch (Exception ex)
@@ -2784,10 +2784,10 @@ namespace Integrate.SisMed.Services.Conn
                     }
                 }
 
-                if (this.conexionBD.State == ConnectionState.Closed)
-                    this.conexionBD.Open();
+                if (this.ConexionBd.State == ConnectionState.Closed)
+                    this.ConexionBd.Open();
 
-                var command = new NpgsqlCommand(query, this.conexionBD);
+                var command = new NpgsqlCommand(query, this.ConexionBd);
 
                 //Para soporte de imagenes---------------------------
                 foreach (int posicion in arrPosicionByte)
@@ -2799,7 +2799,7 @@ namespace Integrate.SisMed.Services.Conn
 
                 int numReg = command.ExecuteNonQuery();
                 command.Dispose();
-                this.conexionBD.Close();
+                this.ConexionBd.Close();
                 return numReg;
             }
             catch (Exception ex)
@@ -2926,7 +2926,7 @@ namespace Integrate.SisMed.Services.Conn
                 command.Transaction = Trans.MyTrans;
                 int numReg = command.ExecuteNonQuery();
                 command.Dispose();
-                this.conexionBD.Close();
+                this.ConexionBd.Close();
                 return numReg;
             }
             catch (Exception ex)
@@ -3043,10 +3043,10 @@ namespace Integrate.SisMed.Services.Conn
 
                 query = query + strParametrosAdicionales;
 
-                if (this.conexionBD.State == ConnectionState.Closed)
-                    this.conexionBD.Open();
+                if (this.ConexionBd.State == ConnectionState.Closed)
+                    this.ConexionBd.Open();
 
-                var command = new NpgsqlCommand(query, this.conexionBD);
+                var command = new NpgsqlCommand(query, this.ConexionBd);
 
                 //Para soporte de imagenes---------------------------
                 foreach (int posicion in arrPosicionByte)
@@ -3058,7 +3058,7 @@ namespace Integrate.SisMed.Services.Conn
 
                 int numReg = command.ExecuteNonQuery();
                 command.Dispose();
-                this.conexionBD.Close();
+                this.ConexionBd.Close();
                 return numReg;
             }
             catch (Exception ex)
@@ -3193,7 +3193,7 @@ namespace Integrate.SisMed.Services.Conn
                 command.Transaction = Trans.MyTrans;
                 int numReg = command.ExecuteNonQuery();
                 command.Dispose();
-                this.conexionBD.Close();
+                this.ConexionBd.Close();
                 return numReg;
             }
             catch (Exception ex)
@@ -4817,7 +4817,7 @@ namespace Integrate.SisMed.Services.Conn
                         }
                     }
                 }
-                command.Connection = this.conexionBD;
+                command.Connection = this.ConexionBd;
                 command.ExecuteNonQuery();
                 command.Connection.Close();
                 command.Dispose();
@@ -5124,7 +5124,7 @@ namespace Integrate.SisMed.Services.Conn
                         }
                     }
                 }
-                command.Connection = this.conexionBD;
+                command.Connection = this.ConexionBd;
 
                 command.Connection.Open();
                 int intRes = command.ExecuteNonQuery();
@@ -5443,7 +5443,7 @@ namespace Integrate.SisMed.Services.Conn
 
                 }
 
-                command.Connection = this.conexionBD;
+                command.Connection = this.ConexionBd;
 
                 command.Connection.Open();
                 int intRes = command.ExecuteNonQuery();
@@ -5669,7 +5669,7 @@ namespace Integrate.SisMed.Services.Conn
 
             try
             {
-                command.Connection = this.conexionBD;
+                command.Connection = this.ConexionBd;
 
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(command);
 
@@ -5839,7 +5839,7 @@ namespace Integrate.SisMed.Services.Conn
                     }
                 }
 
-                command.Connection = this.conexionBD;
+                command.Connection = this.ConexionBd;
 
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(command);
 
@@ -6105,7 +6105,7 @@ namespace Integrate.SisMed.Services.Conn
                     }
                 }
 
-                command.Connection = this.conexionBD;
+                command.Connection = this.ConexionBd;
 
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(command);
 
@@ -6287,7 +6287,7 @@ namespace Integrate.SisMed.Services.Conn
             command.CommandType = CommandType.StoredProcedure;
             try
             {
-                command.Connection = this.conexionBD;
+                command.Connection = this.ConexionBd;
                 if (command.Connection.State == ConnectionState.Closed) command.Connection.Open();
                 DbDataReader dr = command.ExecuteReader(CommandBehavior.CloseConnection);
                 if (command.Connection.State != ConnectionState.Closed) command.Connection.Close();
@@ -6448,7 +6448,7 @@ namespace Integrate.SisMed.Services.Conn
                     }
                 }
 
-                command.Connection = this.conexionBD;
+                command.Connection = this.ConexionBd;
 
                 if (command.Connection.State == ConnectionState.Closed) command.Connection.Open();
                 DbDataReader dr = command.ExecuteReader(CommandBehavior.CloseConnection);
@@ -6707,7 +6707,7 @@ namespace Integrate.SisMed.Services.Conn
                     }
                 }
 
-                command.Connection = this.conexionBD;
+                command.Connection = this.ConexionBd;
 
                 if (command.Connection.State == ConnectionState.Closed) command.Connection.Open();
                 DbDataReader dr = command.ExecuteReader(CommandBehavior.CloseConnection);
@@ -6868,14 +6868,14 @@ namespace Integrate.SisMed.Services.Conn
         {
             try
             {
-                if (this.conexionBD.State == ConnectionState.Closed)
-                    this.conexionBD.Open();
+                if (this.ConexionBd.State == ConnectionState.Closed)
+                    this.ConexionBd.Open();
 
-                var command = new NpgsqlCommand(strQuery, this.conexionBD);
+                var command = new NpgsqlCommand(strQuery, this.ConexionBd);
 
                 int numReg = command.ExecuteNonQuery();
                 command.Dispose();
-                this.conexionBD.Close();
+                this.ConexionBd.Close();
                 return numReg;
             }
             catch (Exception ex)

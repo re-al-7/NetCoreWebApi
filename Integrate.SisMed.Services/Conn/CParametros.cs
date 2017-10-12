@@ -1,6 +1,6 @@
 namespace Integrate.SisMed.Services.Conn
 {
-    static public class CParametros
+    public static class CParametros
     {
         private enum MiEntornoEnum
         {

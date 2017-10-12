@@ -108,7 +108,7 @@ namespace Integrate.SisMed.AppConsole
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strToken);
 
-                    string stringData = JsonConvert.SerializeObject(CUtilsApi.PostTable(obj));
+                    string stringData = JsonConvert.SerializeObject(obj.CreateApiObject() );
                     //var contentData = new StringContent("nombre:'SegUsuarios', datos: [" + stringData +"]",Encoding.UTF8, "application/json");
                     var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");
 
@@ -154,7 +154,7 @@ namespace Integrate.SisMed.AppConsole
                         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strToken);
 
-                        string stringData = JsonConvert.SerializeObject(CUtilsApi.PostTable(objMod));
+                        string stringData = JsonConvert.SerializeObject(objMod.CreateApiObject());
                         //var contentData = new StringContent("nombre:'SegUsuarios', datos: [" + stringData +"]",Encoding.UTF8, "application/json");
                         var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");
 

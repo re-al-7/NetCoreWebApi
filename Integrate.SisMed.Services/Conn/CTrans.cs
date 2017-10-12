@@ -20,7 +20,7 @@ namespace Integrate.SisMed.Services.Conn
         public CTrans()
         {
             CConn tempConnWebService = new CConn();
-            this.MyConn = tempConnWebService.conexionBD;
+            this.MyConn = tempConnWebService.ConexionBd;
             this.MyConn.Open();
             this.MyTrans = this.MyConn.BeginTransaction();
         }

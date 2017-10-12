@@ -11,17 +11,4 @@ namespace Integrate.SisMed.AppConsole
         public string nombre { get; set; }
         public dynamic datos { get; set; }
     }
-
-    
-
-    public static class CUtilsApi
-    {
-        public static CApiObject PostTable(dynamic obj)
-        {
-            var objApi = new CApiObject();
-            objApi.nombre = "SegUsuarios";
-            objApi.datos = obj;
-            return objApi;
-        }        
-    }
 }
