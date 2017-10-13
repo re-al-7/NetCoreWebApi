@@ -14,12 +14,6 @@ using Newtonsoft.Json.Linq;
 
 namespace Integrate.SisMed.AppConsole
 {
-    class CUserCredentials
-    {
-        public string username { get; set; }
-        public string password { get; set; }
-    }
-
     class Program
     {
         private static string strBaseUri = "http://localhost:59386";
@@ -27,29 +21,18 @@ namespace Integrate.SisMed.AppConsole
 
         static void Main(string[] args)
         {
-            //Obj para la modificacion
-            EntSegUsuarios objMod = null;
-
             //Primero nos autenticamos
             using (HttpClient client = new HttpClient())
             {
-                var objUser = new CUserCredentials();
-                objUser.username = "deferarib";
-                objUser.password = "Desa2016";
-
                 var formContent = new FormUrlEncodedContent(new[]
                 {
-                    new KeyValuePair<string, string>("username", objUser.username),
-                    new KeyValuePair<string, string>("password", objUser.password)
+                    new KeyValuePair<string, string>("username", "deferarib"),
+                    new KeyValuePair<string, string>("password", "Desa2016")
                 });
 
                 client.BaseAddress = new Uri(strBaseUri);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                string stringData = JsonConvert.SerializeObject(objUser);
-                //var contentData = new StringContent("nombre:'SegUsuarios', datos: [" + stringData +"]",Encoding.UTF8, "application/json");
-                var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");
 
                 HttpResponseMessage response = client.PostAsync
                 ("/api/token",
@@ -63,114 +46,20 @@ namespace Integrate.SisMed.AppConsole
             }
 
             //Obtener los datos
-            using (HttpClient client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(strBaseUri);
-                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType);
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strToken);
-
-
-                HttpResponseMessage response = client.GetAsync("/api/values/SegUsuarios").Result;
-
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-                    var stringData = response.Content.ReadAsStringAsync().Result;
-
-                    List<EntSegUsuarios> data = JsonConvert.DeserializeObject
-                        <List<EntSegUsuarios>>(stringData);
-
-                    foreach (EntSegUsuarios objUsu in data)
-                    {
-                        if (objUsu.idsus == 1)
-                            objMod = objUsu;
-                    }
-                }
-            }
-            //Console.ReadKey();
-
-            //Insertar un dato
             try
             {
-                var obj = new EntSegUsuarios();
-                obj.idsus = 15;
-                obj.loginsus = "aaaalo";
-                obj.passsus = "aaaalo";
-                obj.nombresus = "aaaalo";
-                obj.apellidosus = "vera";
-                obj.fechapasssus = DateTime.Now;
+                //Obtenemos lista
+                var rn = new RnSegUsuarios(strToken);
+                List<EntSegUsuarios> lista = rn.ObtenerLista();
+                Console.WriteLine("Lista: " + lista.Count);
+                Console.WriteLine("-------------------------------");
 
+                EntSegUsuarios obj = rn.ObtenerObjeto(1);
+                Console.WriteLine("Objeto: " + obj.loginsus);
+                Console.WriteLine("-------------------------------");
 
-                using (HttpClient client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri(strBaseUri);
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strToken);
-
-                    string stringData = JsonConvert.SerializeObject(obj.CreateApiObject() );
-                    //var contentData = new StringContent("nombre:'SegUsuarios', datos: [" + stringData +"]",Encoding.UTF8, "application/json");
-                    var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");
-
-                    HttpResponseMessage response = client.PostAsync
-                    ("/api/values/",
-                        contentData).Result;
-                    if (response.StatusCode == HttpStatusCode.OK)
-                    {
-                        var strResult = response.Content.ReadAsStringAsync().Result;
-                    }
-                    else
-                    {
-                        throw new CApiExcepcion(response);
-                    }
-                }
-
-            }
-            catch (Exception exp)
-            {
-                if (exp is CApiExcepcion)
-                {
-                    var miExp = (CApiExcepcion) exp;
-                    Console.WriteLine(miExp.error);
-                    Console.WriteLine(miExp.causa);
-                    Console.WriteLine(miExp.accion);
-                    Console.WriteLine(miExp.comentario);
-                    Console.WriteLine(miExp.origen);
-                }
-                else
-                    Console.WriteLine(exp);
-            }
-
-            //Modificar un dato
-            try
-            {
-                if (objMod != null)
-                {
-                    objMod.nombresus = "R. ALonzo";
-                    using (HttpClient client = new HttpClient())
-                    {
-                        client.BaseAddress = new Uri(strBaseUri);
-                        client.DefaultRequestHeaders.Accept.Clear();
-                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strToken);
-
-                        string stringData = JsonConvert.SerializeObject(objMod.CreateApiObject());
-                        //var contentData = new StringContent("nombre:'SegUsuarios', datos: [" + stringData +"]",Encoding.UTF8, "application/json");
-                        var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");
-
-                        HttpResponseMessage response = client.PutAsync
-                        ("/api/values/" + objMod.idsus,
-                            contentData).Result;
-                        if (response.StatusCode == HttpStatusCode.OK)
-                        {
-                            var strResult = response.Content.ReadAsStringAsync().Result;
-                        }
-                        else
-                        {
-                            throw new CApiExcepcion(response);
-                        }
-                    }
-                }
+                obj.nombresus = "R. Alonzo";
+                rn.Update(obj);
             }
             catch (Exception exp)
             {
@@ -184,9 +73,7 @@ namespace Integrate.SisMed.AppConsole
                     Console.WriteLine(miExp.origen);
                 }
                 else
-                    Console.WriteLine(exp);
-
-                Console.ReadKey();
+                    Console.WriteLine(exp);                
             }
 
 

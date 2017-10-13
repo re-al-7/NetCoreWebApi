@@ -70,7 +70,46 @@ namespace Integrate.SisMed.Services.Controllers
                     origen = strOrigen
                 });
             }
-            
+        }
+
+        // GET api/values/5
+        [HttpGet("{id}/{idValue}")]
+        [Authorize]
+        public IActionResult Get(string id, int idValue)
+        {
+            try
+            {
+                //instanciamos la RN
+                dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Services.Dal.Modelo.Rn" + id);
+                if (rn == null)
+                    return BadRequest();
+
+                var result = rn.ObtenerObjeto(idValue);
+
+                //var formattedCustomObject = JsonConvert.SerializeObject(result, Formatting.Indented);
+                //return Ok(formattedCustomObject);
+
+                //En Startup.cs ConfigureServices se define el JSON por defecto
+                //KB: https://stackoverflow.com/questions/42360139/asp-net-core-return-json-with-status-code
+                return Ok(result);
+            }
+            catch (Exception exp)
+            {
+                var strMensaje = "";
+                var strCausa = "";
+                var strAccion = "";
+                var strComentario = "";
+                var strOrigen = "";
+                CUtilsApi.CargarError(exp, out strMensaje, out strCausa, out strAccion, out strComentario, out strOrigen);
+                return BadRequest(new
+                {
+                    error = strMensaje,
+                    causa = strCausa,
+                    accion = strAccion,
+                    comentario = strComentario,
+                    origen = strOrigen
+                });
+            }
         }
 
         // POST api/values
@@ -194,27 +233,20 @@ namespace Integrate.SisMed.Services.Controllers
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id, [FromBody]JObject value)
+        [HttpDelete("{tabla}/{id}")]
+        public IActionResult Delete(string tabla, int id)
         {
             try
             {
-                if (value == null)
-                    return BadRequest();
-
                 if (ModelState.IsValid)
                 {
-                    dynamic jsonData = value;
-                    string nombreTabla = jsonData.nombre;
-                    JObject datos = jsonData.datos;
-
                     //instanciamos la RN
-                    dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Services.Dal.Modelo.Rn" + nombreTabla);
+                    dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Services.Dal.Modelo.Rn" + tabla);
                     if (rn == null)
                         return BadRequest();
 
                     //instanciamos la Entidad
-                    dynamic obj = CUtilsApi.GetInstance("Integrate.SisMed.BusinessObjects.Ent" + nombreTabla);
+                    dynamic obj = CUtilsApi.GetInstance("Integrate.SisMed.BusinessObjects.Ent" + tabla);
                     if (obj == null)
                         return BadRequest();
 
