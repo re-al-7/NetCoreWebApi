@@ -1,4 +1,4 @@
-﻿namespace Integrate.SisMed.App
+﻿namespace Integrate.SisMed.App.Dal
 {
     public static class CParametros
     {

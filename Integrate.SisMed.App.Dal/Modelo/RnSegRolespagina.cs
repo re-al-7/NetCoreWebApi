@@ -1,8 +1,8 @@
 #region 
 /***********************************************************************************************************
-	NOMBRE:       RnSegMensajeserror
+	NOMBRE:       RnSegRolespagina
 	DESCRIPCION:
-		Clase que implmenta los metodos y operaciones sobre la Tabla segmensajeserror
+		Clase que implmenta los metodos y operaciones sobre la Tabla segrolespagina
 
 	REVISIONES:
 		Ver        FECHA       Autor            Descripcion 
@@ -15,25 +15,24 @@
 
 
 #region
-
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using Integrate.SisMed.App.Entidades;
 using Newtonsoft.Json;
-
+using Integrate.SisMed.App.Dal; 
+using Integrate.SisMed.App.Dal.Entidades;
 #endregion
 
-namespace Integrate.SisMed.App.Modelo
+namespace Integrate.SisMed.App.Dal.Modelo
 {
-	public class RnSegMensajeserror
+	public class RnSegRolespagina
 	{
 		private string strMiToken = "";
 		
-		public RnSegMensajeserror(string strToken = "")
+		public RnSegRolespagina(string strToken = "")
 		{
 			this.strMiToken = strToken;
 		}
@@ -43,9 +42,9 @@ namespace Integrate.SisMed.App.Modelo
 		/// </summary>
 		/// <param name="intidsus">Llave Primaria</param>
 		/// <returns>Objeto que coincide con la llave primaria buscada</returns>
-		public EntSegMensajeserror ObtenerObjeto(int interrorsme, String Stringaplicacionsap)
+		public EntSegRolespagina ObtenerObjeto(int introlsro, int intpaginaspg)
 		{
-			var obj = new EntSegMensajeserror();
+			var obj = new EntSegRolespagina();
 			using (HttpClient client = new HttpClient())
 			{
 				client.BaseAddress = new Uri(CParametros.strBaseUri);
@@ -54,11 +53,11 @@ namespace Integrate.SisMed.App.Modelo
 				if (!string.IsNullOrEmpty(strMiToken))
 					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
 				
-				HttpResponseMessage response = client.GetAsync("/api/values/" + EntSegMensajeserror.StrNombreTabla + "/" + interrorsme+ "/" + Stringaplicacionsap).Result;
+				HttpResponseMessage response = client.GetAsync("/api/values/" + EntSegRolespagina.StrNombreTabla + "/" + introlsro+ "/" + intpaginaspg).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					var stringData = response.Content.ReadAsStringAsync().Result;
-					obj = JsonConvert.DeserializeObject<EntSegMensajeserror>(stringData);
+					obj = JsonConvert.DeserializeObject<EntSegRolespagina>(stringData);
 				}
 				else
 					throw new CApiExcepcion(response);
@@ -70,9 +69,9 @@ namespace Integrate.SisMed.App.Modelo
 		/// Funcion que obtiene un conjunto de Objetos
 		/// </summary>
 		/// <returns>Valor del Tipo System.Collections.Generic.List que cumple con los filtros de los parametros </returns>
-		public List<EntSegMensajeserror> ObtenerLista()
+		public List<EntSegRolespagina> ObtenerLista()
 		{
-			var data = new List<EntSegMensajeserror>();
+			var data = new List<EntSegRolespagina>();
 			using (HttpClient client = new HttpClient())
 			{
 				client.BaseAddress = new Uri(CParametros.strBaseUri);
@@ -81,11 +80,11 @@ namespace Integrate.SisMed.App.Modelo
 				if (!string.IsNullOrEmpty(strMiToken))
 					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
 				
-				HttpResponseMessage response = client.GetAsync("/api/values/" + EntSegMensajeserror.StrNombreTabla).Result;
+				HttpResponseMessage response = client.GetAsync("/api/values/" + EntSegRolespagina.StrNombreTabla).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					var stringData = response.Content.ReadAsStringAsync().Result;
-					data = JsonConvert.DeserializeObject <List<EntSegMensajeserror>>(stringData);
+					data = JsonConvert.DeserializeObject <List<EntSegRolespagina>>(stringData);
 				}
 				else
 					throw new CApiExcepcion(response);
@@ -99,7 +98,7 @@ namespace Integrate.SisMed.App.Modelo
 		/// <param name="obj">Clase desde la que se van a insertar los valores a la tabla</param>
 		/// <param name="bValidar">Valor que indica si se debe realizar la validación en base a los DataAnnotation</param>
 		/// <returns>Valor TRUE or FALSE que indica el exito de la operacion</returns>
-		public bool Insert(EntSegMensajeserror obj, bool bValidar = true)
+		public bool Insert(EntSegRolespagina obj, bool bValidar = true)
 		{
 			bool bProcede = false;
 			using (HttpClient client = new HttpClient())
@@ -130,7 +129,7 @@ namespace Integrate.SisMed.App.Modelo
 		/// <param name="obj">Clase desde la que se van a actualizar los valores a la tabla</param>
 		/// <param name="bValidar">Valor que indica si se debe realizar la validación en base a los DataAnnotation</param>
 		/// <returns>Valor TRUE or FALSE que indica el exito de la operacion</returns>
-		public bool Update(EntSegMensajeserror obj, bool bValidar = true)
+		public bool Update(EntSegRolespagina obj, bool bValidar = true)
 		{
 			bool bProcede = false;
 			using (HttpClient client = new HttpClient())
@@ -161,7 +160,7 @@ namespace Integrate.SisMed.App.Modelo
 		/// <param name="obj">Clase desde la que se van a eliminar los valores a la tabla</param>
 		/// <param name="bValidar">Valor que indica si se debe realizar la validación en base a los DataAnnotation</param>
 		/// <returns>Valor TRUE or FALSE que indica el exito de la operacion</returns>
-		public bool Delete(EntSegMensajeserror obj, bool bValidar = true)
+		public bool Delete(EntSegRolespagina obj, bool bValidar = true)
 		{
 			bool bProcede = false;
 			using (HttpClient client = new HttpClient())
@@ -172,7 +171,7 @@ namespace Integrate.SisMed.App.Modelo
 				if (!string.IsNullOrEmpty(strMiToken))
 					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
 				
-				HttpResponseMessage response = client.DeleteAsync("/api/values/"+ EntSegMensajeserror.StrNombreTabla +"/" + obj.errorsme+ "/" + obj.aplicacionsap).Result;
+				HttpResponseMessage response = client.DeleteAsync("/api/values/"+ EntSegRolespagina.StrNombreTabla +"/" + obj.rolsro+ "/" + obj.paginaspg).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					var strResult = response.Content.ReadAsStringAsync().Result;

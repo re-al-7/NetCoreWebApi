@@ -32,7 +32,7 @@ namespace Integrate.SisMed.Api.Services.Controllers
             try
             {
                 //instanciamos la RN
-                dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Services.Dal.Modelo.Rn" + id);
+                dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Api.Services.Dal.Modelo.Rn" + id);
                 if (rn == null)
                     return BadRequest();
 
@@ -72,7 +72,7 @@ namespace Integrate.SisMed.Api.Services.Controllers
             try
             {
                 //instanciamos la RN
-                dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Services.Dal.Modelo.Rn" + id);
+                dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Api.Services.Dal.Modelo.Rn" + id);
                 if (rn == null)
                     return BadRequest();
 
@@ -124,12 +124,12 @@ namespace Integrate.SisMed.Api.Services.Controllers
                     JObject datos = jsonData.datos;
 
                     //instanciamos la RN
-                    dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Services.Dal.Modelo.Rn" + nombreTabla);
+                    dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Api.Services.Dal.Modelo.Rn" + nombreTabla);
                     if (rn == null)
                         return BadRequest();
 
                     //instanciamos la Entidad
-                    dynamic obj = CUtilsApi.GetInstance("Integrate.SisMed.BusinessObjects.Ent" + nombreTabla);
+                    dynamic obj = CUtilsApi.GetInstance("Integrate.SisMed.Api.BusinessObjects.Ent" + nombreTabla);
                     if (obj == null)
                         return BadRequest();
 
@@ -181,12 +181,12 @@ namespace Integrate.SisMed.Api.Services.Controllers
                     JObject datos = jsonData.datos;
 
                     //instanciamos la RN
-                    dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Services.Dal.Modelo.Rn" + nombreTabla);
+                    dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Api.Services.Dal.Modelo.Rn" + nombreTabla);
                     if (rn == null)
                         return BadRequest();
 
                     //instanciamos la Entidad
-                    dynamic obj = CUtilsApi.GetInstance("Integrate.SisMed.BusinessObjects.Ent" + nombreTabla);
+                    dynamic obj = CUtilsApi.GetInstance("Integrate.SisMed.Api.BusinessObjects.Ent" + nombreTabla);
                     if (obj == null)
                         return BadRequest();
 
@@ -233,12 +233,12 @@ namespace Integrate.SisMed.Api.Services.Controllers
                 if (ModelState.IsValid)
                 {
                     //instanciamos la RN
-                    dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Services.Dal.Modelo.Rn" + tabla);
+                    dynamic rn = CUtilsApi.GetInstance("Integrate.SisMed.Api.Services.Dal.Modelo.Rn" + tabla);
                     if (rn == null)
                         return BadRequest();
 
                     //instanciamos la Entidad
-                    dynamic obj = CUtilsApi.GetInstance("Integrate.SisMed.BusinessObjects.Ent" + tabla);
+                    dynamic obj = CUtilsApi.GetInstance("Integrate.SisMed.Api.BusinessObjects.Ent" + tabla);
                     if (obj == null)
                         return BadRequest();
 

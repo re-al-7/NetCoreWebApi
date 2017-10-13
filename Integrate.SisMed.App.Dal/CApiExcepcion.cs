@@ -4,9 +4,9 @@ using System.Net.Http;
 using System.Runtime.Serialization;
 using Newtonsoft.Json.Linq;
 
-namespace Integrate.SisMed.App
+namespace Integrate.SisMed.App.Dal
 {
-    class CApiExcepcion: Exception
+    public class CApiExcepcion: Exception
     {
         
         public string error { get; set; }

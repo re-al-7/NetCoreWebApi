@@ -1,102 +1,105 @@
 #region 
 /***********************************************************************************************************
-	NOMBRE:       EntSegUsuarios
+	NOMBRE:       EntSegPaginas
 	DESCRIPCION:
-		Clase que define un objeto para la Tabla segusuarios
+		Clase que define un objeto para la Tabla segpaginas
 
 	REVISIONES:
 		Ver        FECHA       Autor            Descripcion 
 		---------  ----------  ---------------  ------------------------------------
-		1.0        06/10/2017  R Alonzo Vera A  Creacion 
+		1.0        13/10/2017  R Alonzo Vera A  Creacion 
 
 *************************************************************************************************************/
 #endregion
 
 
 #region
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
+using System.Numerics;
 using System.Reflection;
-using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Serialization;
-
+using System.Runtime.Serialization;
 #endregion
 
-namespace Integrate.SisMed.App
+namespace Integrate.SisMed.App.Dal.Entidades
 {
-	public class EntSegUsuarios
-    {
-		public const string StrNombreTabla = "SegUsuarios";
-		public const string StrAliasTabla = "Sus";
-		public enum Fields 
+	[Table("segpaginas")]
+	public class EntSegPaginas
+	{
+		public const string StrNombreTabla = "SegPaginas";
+		public const string StrAliasTabla = "Spg";
+		public enum Fields
 		{
-			idsus
-			,loginsus
-			,passsus
-			,nombresus
-			,apellidosus
-			,vigentesus
-			,fechavigentesus
-			,fechapasssus
-			,apiestadosus
-			,apitransaccionsus
-			,usucresus
-			,feccresus
-			,usumodsus
-			,fecmodsus
+			paginaspg
+			,aplicacionsap
+			,paginapadrespg
+			,nombrespg
+			,nombremenuspg
+			,descripcionspg
+			,prioridadspg
+			,apiestadospg
+			,apitransaccionspg
+			,usucrespg
+			,feccrespg
+			,usumodspg
+			,fecmodspg
 
-		}
-
-        /// <summary>
-        /// Funcion para obtener un objeto para el API y sus datos
-        /// </summary>        
-        /// <returns>Objeto de tipo CApiObject con los datos para enviar al API</returns>
-        public CApiObject CreateApiObject()
-        {
-            var objApi = new CApiObject();
-            objApi.nombre = EntSegUsuarios.StrNombreTabla;
-            objApi.datos = this;
-            return objApi;
-        }
-
-        #region Constructoress
-
-        public EntSegUsuarios()
-		{
-			//Inicializacion de Variables
-			loginsus = null;
-			passsus = null;
-			nombresus = null;
-			apellidosus = null;
-			fechapasssus = null;
-			apiestadosus = null;
-			apitransaccionsus = null;
-			usucresus = null;
-			usumodsus = null;
-			fecmodsus = null;
 		}
 		
-		public EntSegUsuarios(EntSegUsuarios obj)
+		#region Constructoress
+		
+		public EntSegPaginas()
 		{
-			idsus = obj.idsus;
-			loginsus = obj.loginsus;
-			passsus = obj.passsus;
-			nombresus = obj.nombresus;
-			apellidosus = obj.apellidosus;
-			vigentesus = obj.vigentesus;
-			fechavigentesus = obj.fechavigentesus;
-			fechapasssus = obj.fechapasssus;
-			apiestadosus = obj.apiestadosus;
-			apitransaccionsus = obj.apitransaccionsus;
-			usucresus = obj.usucresus;
-			feccresus = obj.feccresus;
-			usumodsus = obj.usumodsus;
-			fecmodsus = obj.fecmodsus;
+			//Inicializacion de Variables
+			aplicacionsap = null;
+			paginapadrespg = null;
+			nombrespg = null;
+			nombremenuspg = null;
+			descripcionspg = null;
+			prioridadspg = null;
+			apiestadospg = null;
+			apitransaccionspg = null;
+			usucrespg = null;
+			usumodspg = null;
+			fecmodspg = null;
+		}
+		
+		public EntSegPaginas(EntSegPaginas obj)
+		{
+			paginaspg = obj.paginaspg;
+			aplicacionsap = obj.aplicacionsap;
+			paginapadrespg = obj.paginapadrespg;
+			nombrespg = obj.nombrespg;
+			nombremenuspg = obj.nombremenuspg;
+			descripcionspg = obj.descripcionspg;
+			prioridadspg = obj.prioridadspg;
+			apiestadospg = obj.apiestadospg;
+			apitransaccionspg = obj.apitransaccionspg;
+			usucrespg = obj.usucrespg;
+			feccrespg = obj.feccrespg;
+			usumodspg = obj.usumodspg;
+			fecmodspg = obj.fecmodspg;
+		}
+		
+		#endregion
+		
+		#region Metodos Estaticos
+		/// <summary>
+		/// Funcion para obtener un objeto para el API y sus datos
+		/// </summary>
+		/// <returns>Objeto de tipo CApiObject con los datos para enviar al API</returns>
+		public CApiObject CreateApiObject()
+		{
+			var objApi = new CApiObject();
+			objApi.nombre = EntSegPaginas.StrNombreTabla;
+			objApi.datos = this;
+			return objApi;
 		}
 		
 		#endregion
@@ -172,7 +175,7 @@ namespace Integrate.SisMed.App
 			try
 			{
 				MemoryStream memStream = new MemoryStream();
-				XmlSerializer serializer = new XmlSerializer(typeof(EntSegUsuarios));
+				XmlSerializer serializer = new XmlSerializer(typeof(EntSegPaginas));
 				serializer.Serialize(memStream, this);
 				
 				//Ahora se obtiene el Hash del Objeto.
@@ -189,7 +192,7 @@ namespace Integrate.SisMed.App
 		/// <summary>
 		/// Verifica que dos objetos sean identicos
 		/// </summary>
-		public static bool operator ==(EntSegUsuarios first, EntSegUsuarios second)
+		public static bool operator ==(EntSegPaginas first, EntSegPaginas second)
 		{
 			// Verifica si el puntero en memoria es el mismo
 			if (Object.ReferenceEquals(first, second))
@@ -205,7 +208,7 @@ namespace Integrate.SisMed.App
 		/// <summary>
 		/// Verifica que dos objetos sean distintos
 		/// </summary>
-		public static bool operator !=(EntSegUsuarios first, EntSegUsuarios second)
+		public static bool operator !=(EntSegPaginas first, EntSegPaginas second)
 		{
 			return !(first == second);
 		}
@@ -278,7 +281,7 @@ namespace Integrate.SisMed.App
 		#endregion
 		
 		/// <summary>
-		/// Propiedad publica de tipo int que representa a la columna idsus de la Tabla segusuarios
+		/// Propiedad publica de tipo int que representa a la columna paginaspg de la Tabla segpaginas
 		/// Permite Null: No
 		/// Es Calculada: No
 		/// Es RowGui: No
@@ -286,13 +289,86 @@ namespace Integrate.SisMed.App
 		/// Es ForeignKey: No
 		/// </summary>
 		[Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
-		[Display(Name = "idsus", Description = " Propiedad publica de tipo int que representa a la columna idsus de la Tabla segusuarios")]
-		[Required(ErrorMessage = "idsus es un campo requerido.")]
+		[Display(Name = "paginaspg", Description = " Propiedad publica de tipo int que representa a la columna paginaspg de la Tabla segpaginas")]
+		[Required(ErrorMessage = "paginaspg es un campo requerido.")]
 		[Key]
-		public int idsus { get; set; } 
+		public int paginaspg { get; set; } 
 
 		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna loginsus de la Tabla segusuarios
+		/// Propiedad publica de tipo String que representa a la columna aplicacionsap de la Tabla segpaginas
+		/// Permite Null: No
+		/// Es Calculada: No
+		/// Es RowGui: No
+		/// Es PrimaryKey: No
+		/// Es ForeignKey: Yes
+		/// </summary>
+		[StringLength(3, MinimumLength=0)]
+		[Display(Name = "aplicacionsap", Description = " Propiedad publica de tipo String que representa a la columna aplicacionsap de la Tabla segpaginas")]
+		[Required(AllowEmptyStrings = true, ErrorMessage = "aplicacionsap es un campo requerido.")]
+		public String aplicacionsap { get; set; } 
+
+		/// <summary>
+		/// Propiedad publica de tipo Decimal que representa a la columna paginapadrespg de la Tabla segpaginas
+		/// Permite Null: Yes
+		/// Es Calculada: No
+		/// Es RowGui: No
+		/// Es PrimaryKey: No
+		/// Es ForeignKey: No
+		/// </summary>
+		[Display(Name = "paginapadrespg", Description = " Propiedad publica de tipo Decimal que representa a la columna paginapadrespg de la Tabla segpaginas")]
+		public Decimal? paginapadrespg { get; set; } 
+
+		/// <summary>
+		/// Propiedad publica de tipo String que representa a la columna nombrespg de la Tabla segpaginas
+		/// Permite Null: No
+		/// Es Calculada: No
+		/// Es RowGui: No
+		/// Es PrimaryKey: No
+		/// Es ForeignKey: No
+		/// </summary>
+		[StringLength(60, MinimumLength=0)]
+		[Display(Name = "nombrespg", Description = " Propiedad publica de tipo String que representa a la columna nombrespg de la Tabla segpaginas")]
+		[Required(AllowEmptyStrings = true, ErrorMessage = "nombrespg es un campo requerido.")]
+		public String nombrespg { get; set; } 
+
+		/// <summary>
+		/// Propiedad publica de tipo String que representa a la columna nombremenuspg de la Tabla segpaginas
+		/// Permite Null: Yes
+		/// Es Calculada: No
+		/// Es RowGui: No
+		/// Es PrimaryKey: No
+		/// Es ForeignKey: No
+		/// </summary>
+		[StringLength(30, MinimumLength=0)]
+		[Display(Name = "nombremenuspg", Description = " Propiedad publica de tipo String que representa a la columna nombremenuspg de la Tabla segpaginas")]
+		public String nombremenuspg { get; set; } 
+
+		/// <summary>
+		/// Propiedad publica de tipo String que representa a la columna descripcionspg de la Tabla segpaginas
+		/// Permite Null: No
+		/// Es Calculada: No
+		/// Es RowGui: No
+		/// Es PrimaryKey: No
+		/// Es ForeignKey: No
+		/// </summary>
+		[StringLength(100, MinimumLength=0)]
+		[Display(Name = "descripcionspg", Description = " Propiedad publica de tipo String que representa a la columna descripcionspg de la Tabla segpaginas")]
+		[Required(AllowEmptyStrings = true, ErrorMessage = "descripcionspg es un campo requerido.")]
+		public String descripcionspg { get; set; } 
+
+		/// <summary>
+		/// Propiedad publica de tipo Decimal que representa a la columna prioridadspg de la Tabla segpaginas
+		/// Permite Null: Yes
+		/// Es Calculada: No
+		/// Es RowGui: No
+		/// Es PrimaryKey: No
+		/// Es ForeignKey: No
+		/// </summary>
+		[Display(Name = "prioridadspg", Description = " Propiedad publica de tipo Decimal que representa a la columna prioridadspg de la Tabla segpaginas")]
+		public Decimal? prioridadspg { get; set; } 
+
+		/// <summary>
+		/// Propiedad publica de tipo String que representa a la columna apiestadospg de la Tabla segpaginas
 		/// Permite Null: No
 		/// Es Calculada: No
 		/// Es RowGui: No
@@ -300,64 +376,37 @@ namespace Integrate.SisMed.App
 		/// Es ForeignKey: No
 		/// </summary>
 		[StringLength(15, MinimumLength=0)]
-		[Display(Name = "loginsus", Description = " Propiedad publica de tipo String que representa a la columna loginsus de la Tabla segusuarios")]
-		[Required(AllowEmptyStrings = true, ErrorMessage = "loginsus es un campo requerido.")]
-		public String loginsus { get; set; } 
+		[Display(Name = "apiestadospg", Description = " Propiedad publica de tipo String que representa a la columna apiestadospg de la Tabla segpaginas")]
+		[EnumDataType(typeof(CApi.Estado))]
+		public String apiestadospg { get; set; } 
 
 		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna passsus de la Tabla segusuarios
+		/// Propiedad publica de tipo String que representa a la columna apitransaccionspg de la Tabla segpaginas
 		/// Permite Null: No
 		/// Es Calculada: No
 		/// Es RowGui: No
 		/// Es PrimaryKey: No
 		/// Es ForeignKey: No
 		/// </summary>
-		[StringLength(256, MinimumLength=0)]
-		[Display(Name = "passsus", Description = " Propiedad publica de tipo String que representa a la columna passsus de la Tabla segusuarios")]
-		[Required(AllowEmptyStrings = true, ErrorMessage = "passsus es un campo requerido.")]
-		public String passsus { get; set; } 
+		[StringLength(15, MinimumLength=0)]
+		[Display(Name = "apitransaccionspg", Description = " Propiedad publica de tipo String que representa a la columna apitransaccionspg de la Tabla segpaginas")]
+		[EnumDataType(typeof(CApi.Transaccion))]
+		public String apitransaccionspg { get; set; } 
 
 		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna nombresus de la Tabla segusuarios
+		/// Propiedad publica de tipo String que representa a la columna usucrespg de la Tabla segpaginas
 		/// Permite Null: No
 		/// Es Calculada: No
 		/// Es RowGui: No
 		/// Es PrimaryKey: No
 		/// Es ForeignKey: No
 		/// </summary>
-		[StringLength(256, MinimumLength=0)]
-		[Display(Name = "nombresus", Description = " Propiedad publica de tipo String que representa a la columna nombresus de la Tabla segusuarios")]
-		[Required(AllowEmptyStrings = true, ErrorMessage = "nombresus es un campo requerido.")]
-		public String nombresus { get; set; } 
+		[StringLength(15, MinimumLength=0)]
+		[Display(Name = "usucrespg", Description = " Propiedad publica de tipo String que representa a la columna usucrespg de la Tabla segpaginas")]
+		public String usucrespg { get; set; } 
 
 		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna apellidosus de la Tabla segusuarios
-		/// Permite Null: No
-		/// Es Calculada: No
-		/// Es RowGui: No
-		/// Es PrimaryKey: No
-		/// Es ForeignKey: No
-		/// </summary>
-		[StringLength(256, MinimumLength=0)]
-		[Display(Name = "apellidosus", Description = " Propiedad publica de tipo String que representa a la columna apellidosus de la Tabla segusuarios")]
-		[Required(AllowEmptyStrings = true, ErrorMessage = "apellidosus es un campo requerido.")]
-		public String apellidosus { get; set; } 
-
-		/// <summary>
-		/// Propiedad publica de tipo int que representa a la columna vigentesus de la Tabla segusuarios
-		/// Permite Null: No
-		/// Es Calculada: No
-		/// Es RowGui: No
-		/// Es PrimaryKey: No
-		/// Es ForeignKey: No
-		/// </summary>
-		[Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
-		[Display(Name = "vigentesus", Description = " Propiedad publica de tipo int que representa a la columna vigentesus de la Tabla segusuarios")]
-		[Required(ErrorMessage = "vigentesus es un campo requerido.")]
-		public int vigentesus { get; set; } 
-
-		/// <summary>
-		/// Propiedad publica de tipo DateTime que representa a la columna fechavigentesus de la Tabla segusuarios
+		/// Propiedad publica de tipo DateTime que representa a la columna feccrespg de la Tabla segpaginas
 		/// Permite Null: No
 		/// Es Calculada: No
 		/// Es RowGui: No
@@ -366,12 +415,23 @@ namespace Integrate.SisMed.App
 		/// </summary>
 		[DataType(DataType.DateTime, ErrorMessage = "Fecha invalida")]
 		[DisplayFormat(DataFormatString = "{ 0:dd/MM/yyyy HH:mm:ss.ffffff}", ApplyFormatInEditMode = true)]
-		[Display(Name = "fechavigentesus", Description = " Propiedad publica de tipo DateTime que representa a la columna fechavigentesus de la Tabla segusuarios")]
-		[Required(ErrorMessage = "fechavigentesus es un campo requerido.")]
-		public DateTime fechavigentesus { get; set; } 
+		[Display(Name = "feccrespg", Description = " Propiedad publica de tipo DateTime que representa a la columna feccrespg de la Tabla segpaginas")]
+		public DateTime feccrespg { get; set; } 
 
 		/// <summary>
-		/// Propiedad publica de tipo DateTime que representa a la columna fechapasssus de la Tabla segusuarios
+		/// Propiedad publica de tipo String que representa a la columna usumodspg de la Tabla segpaginas
+		/// Permite Null: Yes
+		/// Es Calculada: No
+		/// Es RowGui: No
+		/// Es PrimaryKey: No
+		/// Es ForeignKey: No
+		/// </summary>
+		[StringLength(15, MinimumLength=0)]
+		[Display(Name = "usumodspg", Description = " Propiedad publica de tipo String que representa a la columna usumodspg de la Tabla segpaginas")]
+		public String usumodspg { get; set; } 
+
+		/// <summary>
+		/// Propiedad publica de tipo DateTime que representa a la columna fecmodspg de la Tabla segpaginas
 		/// Permite Null: Yes
 		/// Es Calculada: No
 		/// Es RowGui: No
@@ -380,82 +440,8 @@ namespace Integrate.SisMed.App
 		/// </summary>
 		[DataType(DataType.DateTime, ErrorMessage = "Fecha invalida")]
 		[DisplayFormat(DataFormatString = "{ 0:dd/MM/yyyy HH:mm:ss.ffffff}", ApplyFormatInEditMode = true)]
-		[Display(Name = "fechapasssus", Description = " Propiedad publica de tipo DateTime que representa a la columna fechapasssus de la Tabla segusuarios")]
-		public DateTime? fechapasssus { get; set; } 
-
-		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna apiestadosus de la Tabla segusuarios
-		/// Permite Null: No
-		/// Es Calculada: No
-		/// Es RowGui: No
-		/// Es PrimaryKey: No
-		/// Es ForeignKey: No
-		/// </summary>
-		[StringLength(15, MinimumLength=0)]
-		[Display(Name = "apiestadosus", Description = " Propiedad publica de tipo String que representa a la columna apiestadosus de la Tabla segusuarios")]
-		public String apiestadosus { get; set; } 
-
-		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna apitransaccionsus de la Tabla segusuarios
-		/// Permite Null: No
-		/// Es Calculada: No
-		/// Es RowGui: No
-		/// Es PrimaryKey: No
-		/// Es ForeignKey: No
-		/// </summary>
-		[StringLength(15, MinimumLength=0)]
-		[Display(Name = "apitransaccionsus", Description = " Propiedad publica de tipo String que representa a la columna apitransaccionsus de la Tabla segusuarios")]
-		public String apitransaccionsus { get; set; } 
-
-		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna usucresus de la Tabla segusuarios
-		/// Permite Null: No
-		/// Es Calculada: No
-		/// Es RowGui: No
-		/// Es PrimaryKey: No
-		/// Es ForeignKey: No
-		/// </summary>
-		[StringLength(15, MinimumLength=0)]
-		[Display(Name = "usucresus", Description = " Propiedad publica de tipo String que representa a la columna usucresus de la Tabla segusuarios")]
-		public String usucresus { get; set; } 
-
-		/// <summary>
-		/// Propiedad publica de tipo DateTime que representa a la columna feccresus de la Tabla segusuarios
-		/// Permite Null: No
-		/// Es Calculada: No
-		/// Es RowGui: No
-		/// Es PrimaryKey: No
-		/// Es ForeignKey: No
-		/// </summary>
-		[DataType(DataType.DateTime, ErrorMessage = "Fecha invalida")]
-		[DisplayFormat(DataFormatString = "{ 0:dd/MM/yyyy HH:mm:ss.ffffff}", ApplyFormatInEditMode = true)]
-		[Display(Name = "feccresus", Description = " Propiedad publica de tipo DateTime que representa a la columna feccresus de la Tabla segusuarios")]
-		public DateTime feccresus { get; set; } 
-
-		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna usumodsus de la Tabla segusuarios
-		/// Permite Null: Yes
-		/// Es Calculada: No
-		/// Es RowGui: No
-		/// Es PrimaryKey: No
-		/// Es ForeignKey: No
-		/// </summary>
-		[StringLength(15, MinimumLength=0)]
-		[Display(Name = "usumodsus", Description = " Propiedad publica de tipo String que representa a la columna usumodsus de la Tabla segusuarios")]
-		public String usumodsus { get; set; } 
-
-		/// <summary>
-		/// Propiedad publica de tipo DateTime que representa a la columna fecmodsus de la Tabla segusuarios
-		/// Permite Null: Yes
-		/// Es Calculada: No
-		/// Es RowGui: No
-		/// Es PrimaryKey: No
-		/// Es ForeignKey: No
-		/// </summary>
-		[DataType(DataType.DateTime, ErrorMessage = "Fecha invalida")]
-		[DisplayFormat(DataFormatString = "{ 0:dd/MM/yyyy HH:mm:ss.ffffff}", ApplyFormatInEditMode = true)]
-		[Display(Name = "fecmodsus", Description = " Propiedad publica de tipo DateTime que representa a la columna fecmodsus de la Tabla segusuarios")]
-		public DateTime? fecmodsus { get; set; } 
+		[Display(Name = "fecmodspg", Description = " Propiedad publica de tipo DateTime que representa a la columna fecmodspg de la Tabla segpaginas")]
+		public DateTime? fecmodspg { get; set; } 
 
 	}
 }

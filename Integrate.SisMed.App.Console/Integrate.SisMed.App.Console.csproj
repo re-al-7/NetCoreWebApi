@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AA0A8DC3-2E66-4B34-B949-FBDF3DE27F9B}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Integrate.SisMed.App</RootNamespace>
-    <AssemblyName>Integrate.SisMed.App</AssemblyName>
+    <RootNamespace>Integrate.SisMed.App.Console</RootNamespace>
+    <AssemblyName>Integrate.SisMed.App.Console</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -52,22 +52,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CApi.cs" />
-    <Compile Include="CApiExcepcion.cs" />
-    <Compile Include="CParametros.cs" />
-    <Compile Include="CUtilsApi.cs" />
-    <Compile Include="Entidades\EntSegMensajeserror.cs" />
-    <Compile Include="EntSegUsuarios.cs" />
-    <Compile Include="Modelo\RnSegMensajeserror.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RnSegUsuarios.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Integrate.SisMed.App.Dal\Integrate.SisMed.App.Dal.csproj">
+      <Project>{a9605367-9327-4d23-a8f8-cfb247007234}</Project>
+      <Name>Integrate.SisMed.App.Dal</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Integrate.Utils\Integrate.Utils.csproj">
       <Project>{9ffb7c9e-8896-4b0b-ab4f-028e2765a301}</Project>
       <Name>Integrate.Utils</Name>

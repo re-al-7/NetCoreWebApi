@@ -1,8 +1,8 @@
 #region 
 /***********************************************************************************************************
-	NOMBRE:       EntSegMensajeserror
+	NOMBRE:       EntSegAplicaciones
 	DESCRIPCION:
-		Clase que define un objeto para la Tabla segmensajeserror
+		Clase que define un objeto para la Tabla segaplicaciones
 
 	REVISIONES:
 		Ver        FECHA       Autor            Descripcion 
@@ -14,81 +14,66 @@
 
 
 #region
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
+using System.Numerics;
 using System.Reflection;
-using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Serialization;
-
+using System.Runtime.Serialization;
 #endregion
 
-namespace Integrate.SisMed.App.Entidades
+namespace Integrate.SisMed.App.Dal.Entidades
 {
-	[Table("segmensajeserror")]
-	public class EntSegMensajeserror
+	[Table("segaplicaciones")]
+	public class EntSegAplicaciones
 	{
-		public const string StrNombreTabla = "SegMensajeserror";
-		public const string StrAliasTabla = "Sme";
+		public const string StrNombreTabla = "SegAplicaciones";
+		public const string StrAliasTabla = "Sap";
 		public enum Fields
 		{
-			errorsme
-			,aplicacionsap
-			,aplicacionerrorsme
-			,descripcionsme
-			,causasme
-			,accionsme
-			,comentariosme
-			,origensme
-			,apiestadosme
-			,apitransaccionsme
-			,usucresme
-			,feccresme
-			,usumodsme
-			,fecmodsme
+			aplicacionsap
+			,descripcionsap
+			,apiestadosap
+			,apitransaccionsap
+			,usucresap
+			,feccresap
+			,usumodsap
+			,fecmodsap
+			,nombresap
 
 		}
 		
 		#region Constructoress
 		
-		public EntSegMensajeserror()
+		public EntSegAplicaciones()
 		{
 			//Inicializacion de Variables
 			aplicacionsap = null;
-			aplicacionerrorsme = null;
-			descripcionsme = null;
-			causasme = null;
-			accionsme = null;
-			comentariosme = null;
-			origensme = null;
-			apiestadosme = null;
-			apitransaccionsme = null;
-			usucresme = null;
-			usumodsme = null;
-			fecmodsme = null;
+			descripcionsap = null;
+			apiestadosap = null;
+			apitransaccionsap = null;
+			usucresap = null;
+			usumodsap = null;
+			fecmodsap = null;
+			nombresap = null;
 		}
 		
-		public EntSegMensajeserror(EntSegMensajeserror obj)
+		public EntSegAplicaciones(EntSegAplicaciones obj)
 		{
-			errorsme = obj.errorsme;
 			aplicacionsap = obj.aplicacionsap;
-			aplicacionerrorsme = obj.aplicacionerrorsme;
-			descripcionsme = obj.descripcionsme;
-			causasme = obj.causasme;
-			accionsme = obj.accionsme;
-			comentariosme = obj.comentariosme;
-			origensme = obj.origensme;
-			apiestadosme = obj.apiestadosme;
-			apitransaccionsme = obj.apitransaccionsme;
-			usucresme = obj.usucresme;
-			feccresme = obj.feccresme;
-			usumodsme = obj.usumodsme;
-			fecmodsme = obj.fecmodsme;
+			descripcionsap = obj.descripcionsap;
+			apiestadosap = obj.apiestadosap;
+			apitransaccionsap = obj.apitransaccionsap;
+			usucresap = obj.usucresap;
+			feccresap = obj.feccresap;
+			usumodsap = obj.usumodsap;
+			fecmodsap = obj.fecmodsap;
+			nombresap = obj.nombresap;
 		}
 		
 		#endregion
@@ -101,7 +86,7 @@ namespace Integrate.SisMed.App.Entidades
 		public CApiObject CreateApiObject()
 		{
 			var objApi = new CApiObject();
-			objApi.nombre = EntSegMensajeserror.StrNombreTabla;
+			objApi.nombre = EntSegAplicaciones.StrNombreTabla;
 			objApi.datos = this;
 			return objApi;
 		}
@@ -179,7 +164,7 @@ namespace Integrate.SisMed.App.Entidades
 			try
 			{
 				MemoryStream memStream = new MemoryStream();
-				XmlSerializer serializer = new XmlSerializer(typeof(EntSegMensajeserror));
+				XmlSerializer serializer = new XmlSerializer(typeof(EntSegAplicaciones));
 				serializer.Serialize(memStream, this);
 				
 				//Ahora se obtiene el Hash del Objeto.
@@ -196,7 +181,7 @@ namespace Integrate.SisMed.App.Entidades
 		/// <summary>
 		/// Verifica que dos objetos sean identicos
 		/// </summary>
-		public static bool operator ==(EntSegMensajeserror first, EntSegMensajeserror second)
+		public static bool operator ==(EntSegAplicaciones first, EntSegAplicaciones second)
 		{
 			// Verifica si el puntero en memoria es el mismo
 			if (Object.ReferenceEquals(first, second))
@@ -212,7 +197,7 @@ namespace Integrate.SisMed.App.Entidades
 		/// <summary>
 		/// Verifica que dos objetos sean distintos
 		/// </summary>
-		public static bool operator !=(EntSegMensajeserror first, EntSegMensajeserror second)
+		public static bool operator !=(EntSegAplicaciones first, EntSegAplicaciones second)
 		{
 			return !(first == second);
 		}
@@ -285,111 +270,34 @@ namespace Integrate.SisMed.App.Entidades
 		#endregion
 		
 		/// <summary>
-		/// Propiedad publica de tipo int que representa a la columna errorsme de la Tabla segmensajeserror
+		/// Propiedad publica de tipo String que representa a la columna aplicacionsap de la Tabla segaplicaciones
 		/// Permite Null: No
 		/// Es Calculada: No
 		/// Es RowGui: No
 		/// Es PrimaryKey: Yes
 		/// Es ForeignKey: No
 		/// </summary>
-		[Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
-		[Display(Name = "errorsme", Description = " Propiedad publica de tipo int que representa a la columna errorsme de la Tabla segmensajeserror")]
-		[Required(ErrorMessage = "errorsme es un campo requerido.")]
-		[Key]
-		public int errorsme { get; set; } 
-
-		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna aplicacionsap de la Tabla segmensajeserror
-		/// Permite Null: No
-		/// Es Calculada: No
-		/// Es RowGui: No
-		/// Es PrimaryKey: Yes
-		/// Es ForeignKey: Yes
-		/// </summary>
 		[StringLength(3, MinimumLength=0)]
-		[Display(Name = "aplicacionsap", Description = " Propiedad publica de tipo String que representa a la columna aplicacionsap de la Tabla segmensajeserror")]
+		[Display(Name = "aplicacionsap", Description = " Propiedad publica de tipo String que representa a la columna aplicacionsap de la Tabla segaplicaciones")]
 		[Required(AllowEmptyStrings = true, ErrorMessage = "aplicacionsap es un campo requerido.")]
 		[Key]
 		public String aplicacionsap { get; set; } 
 
 		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna aplicacionerrorsme de la Tabla segmensajeserror
+		/// Propiedad publica de tipo String que representa a la columna descripcionsap de la Tabla segaplicaciones
 		/// Permite Null: No
 		/// Es Calculada: No
 		/// Es RowGui: No
 		/// Es PrimaryKey: No
 		/// Es ForeignKey: No
 		/// </summary>
-		[StringLength(9, MinimumLength=0)]
-		[Display(Name = "aplicacionerrorsme", Description = " Propiedad publica de tipo String que representa a la columna aplicacionerrorsme de la Tabla segmensajeserror")]
-		[Required(AllowEmptyStrings = true, ErrorMessage = "aplicacionerrorsme es un campo requerido.")]
-		public String aplicacionerrorsme { get; set; } 
+		[StringLength(60, MinimumLength=0)]
+		[Display(Name = "descripcionsap", Description = " Propiedad publica de tipo String que representa a la columna descripcionsap de la Tabla segaplicaciones")]
+		[Required(AllowEmptyStrings = true, ErrorMessage = "descripcionsap es un campo requerido.")]
+		public String descripcionsap { get; set; } 
 
 		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna descripcionsme de la Tabla segmensajeserror
-		/// Permite Null: No
-		/// Es Calculada: No
-		/// Es RowGui: No
-		/// Es PrimaryKey: No
-		/// Es ForeignKey: No
-		/// </summary>
-		[StringLength(180, MinimumLength=0)]
-		[Display(Name = "descripcionsme", Description = " Propiedad publica de tipo String que representa a la columna descripcionsme de la Tabla segmensajeserror")]
-		[Required(AllowEmptyStrings = true, ErrorMessage = "descripcionsme es un campo requerido.")]
-		public String descripcionsme { get; set; } 
-
-		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna causasme de la Tabla segmensajeserror
-		/// Permite Null: No
-		/// Es Calculada: No
-		/// Es RowGui: No
-		/// Es PrimaryKey: No
-		/// Es ForeignKey: No
-		/// </summary>
-		[StringLength(700, MinimumLength=0)]
-		[Display(Name = "causasme", Description = " Propiedad publica de tipo String que representa a la columna causasme de la Tabla segmensajeserror")]
-		[Required(AllowEmptyStrings = true, ErrorMessage = "causasme es un campo requerido.")]
-		public String causasme { get; set; } 
-
-		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna accionsme de la Tabla segmensajeserror
-		/// Permite Null: No
-		/// Es Calculada: No
-		/// Es RowGui: No
-		/// Es PrimaryKey: No
-		/// Es ForeignKey: No
-		/// </summary>
-		[StringLength(700, MinimumLength=0)]
-		[Display(Name = "accionsme", Description = " Propiedad publica de tipo String que representa a la columna accionsme de la Tabla segmensajeserror")]
-		[Required(AllowEmptyStrings = true, ErrorMessage = "accionsme es un campo requerido.")]
-		public String accionsme { get; set; } 
-
-		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna comentariosme de la Tabla segmensajeserror
-		/// Permite Null: Yes
-		/// Es Calculada: No
-		/// Es RowGui: No
-		/// Es PrimaryKey: No
-		/// Es ForeignKey: No
-		/// </summary>
-		[StringLength(180, MinimumLength=0)]
-		[Display(Name = "comentariosme", Description = " Propiedad publica de tipo String que representa a la columna comentariosme de la Tabla segmensajeserror")]
-		public String comentariosme { get; set; } 
-
-		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna origensme de la Tabla segmensajeserror
-		/// Permite Null: Yes
-		/// Es Calculada: No
-		/// Es RowGui: No
-		/// Es PrimaryKey: No
-		/// Es ForeignKey: No
-		/// </summary>
-		[StringLength(100, MinimumLength=0)]
-		[Display(Name = "origensme", Description = " Propiedad publica de tipo String que representa a la columna origensme de la Tabla segmensajeserror")]
-		public String origensme { get; set; } 
-
-		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna apiestadosme de la Tabla segmensajeserror
+		/// Propiedad publica de tipo String que representa a la columna apiestadosap de la Tabla segaplicaciones
 		/// Permite Null: No
 		/// Es Calculada: No
 		/// Es RowGui: No
@@ -397,12 +305,12 @@ namespace Integrate.SisMed.App.Entidades
 		/// Es ForeignKey: No
 		/// </summary>
 		[StringLength(15, MinimumLength=0)]
-		[Display(Name = "apiestadosme", Description = " Propiedad publica de tipo String que representa a la columna apiestadosme de la Tabla segmensajeserror")]
+		[Display(Name = "apiestadosap", Description = " Propiedad publica de tipo String que representa a la columna apiestadosap de la Tabla segaplicaciones")]
 		[EnumDataType(typeof(CApi.Estado))]
-		public String apiestadosme { get; set; } 
+		public String apiestadosap { get; set; } 
 
 		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna apitransaccionsme de la Tabla segmensajeserror
+		/// Propiedad publica de tipo String que representa a la columna apitransaccionsap de la Tabla segaplicaciones
 		/// Permite Null: No
 		/// Es Calculada: No
 		/// Es RowGui: No
@@ -410,12 +318,12 @@ namespace Integrate.SisMed.App.Entidades
 		/// Es ForeignKey: No
 		/// </summary>
 		[StringLength(15, MinimumLength=0)]
-		[Display(Name = "apitransaccionsme", Description = " Propiedad publica de tipo String que representa a la columna apitransaccionsme de la Tabla segmensajeserror")]
+		[Display(Name = "apitransaccionsap", Description = " Propiedad publica de tipo String que representa a la columna apitransaccionsap de la Tabla segaplicaciones")]
 		[EnumDataType(typeof(CApi.Transaccion))]
-		public String apitransaccionsme { get; set; } 
+		public String apitransaccionsap { get; set; } 
 
 		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna usucresme de la Tabla segmensajeserror
+		/// Propiedad publica de tipo String que representa a la columna usucresap de la Tabla segaplicaciones
 		/// Permite Null: No
 		/// Es Calculada: No
 		/// Es RowGui: No
@@ -423,11 +331,11 @@ namespace Integrate.SisMed.App.Entidades
 		/// Es ForeignKey: No
 		/// </summary>
 		[StringLength(15, MinimumLength=0)]
-		[Display(Name = "usucresme", Description = " Propiedad publica de tipo String que representa a la columna usucresme de la Tabla segmensajeserror")]
-		public String usucresme { get; set; } 
+		[Display(Name = "usucresap", Description = " Propiedad publica de tipo String que representa a la columna usucresap de la Tabla segaplicaciones")]
+		public String usucresap { get; set; } 
 
 		/// <summary>
-		/// Propiedad publica de tipo DateTime que representa a la columna feccresme de la Tabla segmensajeserror
+		/// Propiedad publica de tipo DateTime que representa a la columna feccresap de la Tabla segaplicaciones
 		/// Permite Null: No
 		/// Es Calculada: No
 		/// Es RowGui: No
@@ -436,11 +344,11 @@ namespace Integrate.SisMed.App.Entidades
 		/// </summary>
 		[DataType(DataType.DateTime, ErrorMessage = "Fecha invalida")]
 		[DisplayFormat(DataFormatString = "{ 0:dd/MM/yyyy HH:mm:ss.ffffff}", ApplyFormatInEditMode = true)]
-		[Display(Name = "feccresme", Description = " Propiedad publica de tipo DateTime que representa a la columna feccresme de la Tabla segmensajeserror")]
-		public DateTime feccresme { get; set; } 
+		[Display(Name = "feccresap", Description = " Propiedad publica de tipo DateTime que representa a la columna feccresap de la Tabla segaplicaciones")]
+		public DateTime feccresap { get; set; } 
 
 		/// <summary>
-		/// Propiedad publica de tipo String que representa a la columna usumodsme de la Tabla segmensajeserror
+		/// Propiedad publica de tipo String que representa a la columna usumodsap de la Tabla segaplicaciones
 		/// Permite Null: Yes
 		/// Es Calculada: No
 		/// Es RowGui: No
@@ -448,11 +356,11 @@ namespace Integrate.SisMed.App.Entidades
 		/// Es ForeignKey: No
 		/// </summary>
 		[StringLength(15, MinimumLength=0)]
-		[Display(Name = "usumodsme", Description = " Propiedad publica de tipo String que representa a la columna usumodsme de la Tabla segmensajeserror")]
-		public String usumodsme { get; set; } 
+		[Display(Name = "usumodsap", Description = " Propiedad publica de tipo String que representa a la columna usumodsap de la Tabla segaplicaciones")]
+		public String usumodsap { get; set; } 
 
 		/// <summary>
-		/// Propiedad publica de tipo DateTime que representa a la columna fecmodsme de la Tabla segmensajeserror
+		/// Propiedad publica de tipo DateTime que representa a la columna fecmodsap de la Tabla segaplicaciones
 		/// Permite Null: Yes
 		/// Es Calculada: No
 		/// Es RowGui: No
@@ -461,8 +369,20 @@ namespace Integrate.SisMed.App.Entidades
 		/// </summary>
 		[DataType(DataType.DateTime, ErrorMessage = "Fecha invalida")]
 		[DisplayFormat(DataFormatString = "{ 0:dd/MM/yyyy HH:mm:ss.ffffff}", ApplyFormatInEditMode = true)]
-		[Display(Name = "fecmodsme", Description = " Propiedad publica de tipo DateTime que representa a la columna fecmodsme de la Tabla segmensajeserror")]
-		public DateTime? fecmodsme { get; set; } 
+		[Display(Name = "fecmodsap", Description = " Propiedad publica de tipo DateTime que representa a la columna fecmodsap de la Tabla segaplicaciones")]
+		public DateTime? fecmodsap { get; set; } 
+
+		/// <summary>
+		/// Nombre que se despliega en el Menu
+		/// Permite Null: Yes
+		/// Es Calculada: No
+		/// Es RowGui: No
+		/// Es PrimaryKey: No
+		/// Es ForeignKey: No
+		/// </summary>
+		[StringLength(30, MinimumLength=0)]
+		[Display(Name = "nombresap", Description = "Nombre que se despliega en el Menu")]
+		public String nombresap { get; set; } 
 
 	}
 }

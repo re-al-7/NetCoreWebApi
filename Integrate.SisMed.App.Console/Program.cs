@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Integrate.SisMed.App.Entidades;
-using Integrate.SisMed.App.Modelo;
+using Integrate.SisMed.App.Dal;
+using Integrate.SisMed.App.Dal.Entidades;
+using Integrate.SisMed.App.Dal.Modelo;
 using Newtonsoft.Json.Linq;
 
-namespace Integrate.SisMed.App
+namespace Integrate.SisMed.App.Console
 {
     class Program
     {
@@ -46,8 +47,8 @@ namespace Integrate.SisMed.App
                 //Obtenemos lista
                 var rn = new RnSegMensajeserror(strToken);
                 List<EntSegMensajeserror> lista = rn.ObtenerLista();
-                Console.WriteLine("Lista: " + lista.Count);
-                Console.WriteLine("-------------------------------");
+                System.Console.WriteLine("Lista: " + lista.Count);
+                System.Console.WriteLine("-------------------------------");
 
                 //EntSegMensajeserror obj = rn.ObtenerObjeto(1);
                 //Console.WriteLine("Objeto: " + obj.accionsme);
@@ -61,18 +62,18 @@ namespace Integrate.SisMed.App
                 if (exp is CApiExcepcion)
                 {
                     var miExp = (CApiExcepcion)exp;
-                    Console.WriteLine(miExp.error);
-                    Console.WriteLine(miExp.causa);
-                    Console.WriteLine(miExp.accion);
-                    Console.WriteLine(miExp.comentario);
-                    Console.WriteLine(miExp.origen);
+                    System.Console.WriteLine(miExp.error);
+                    System.Console.WriteLine(miExp.causa);
+                    System.Console.WriteLine(miExp.accion);
+                    System.Console.WriteLine(miExp.comentario);
+                    System.Console.WriteLine(miExp.origen);
                 }
                 else
-                    Console.WriteLine(exp);                
+                    System.Console.WriteLine(exp);                
             }
 
 
-            Console.ReadKey();
+            System.Console.ReadKey();
         }
     }
 }
