@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>Integrate.SisMed.Api.BusinessObjects</AssemblyName>
+    <RootNamespace>Integrate.SisMed.Api.BusinessObjects</RootNamespace>
+  </PropertyGroup>
+
+</Project>

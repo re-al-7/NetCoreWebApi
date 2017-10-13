@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Integrate.SisMed.Services", "Integrate.SisMed.Services\Integrate.SisMed.Services.csproj", "{9BF03346-5B0E-46B1-BFF6-D67F39DB5C58}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integrate.SisMed.AppConsole", "Integrate.SisMed.AppConsole\Integrate.SisMed.AppConsole.csproj", "{AA0A8DC3-2E66-4B34-B949-FBDF3DE27F9B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Integrate.SisMed.BusinessObjects", "Integrate.SisMed.BusinessObjects\Integrate.SisMed.BusinessObjects.csproj", "{FB83DA9E-BEC8-477A-87C6-33661AFC84B9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integrate.Utils", "Integrate.Utils\Integrate.Utils.csproj", "{9FFB7C9E-8896-4B0B-AB4F-028E2765A301}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Integrate.SisMed.Api.BusinessObjects", "Integrate.SisMed.Api.BusinessObjects\Integrate.SisMed.Api.BusinessObjects.csproj", "{FE4EC348-AAE0-4FC5-B9AB-B3AB58379FDD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Integrate.SisMed.Api.Services", "Integrate.SisMed.Api.Services\Integrate.SisMed.Api.Services.csproj", "{5B027B30-95C5-43A3-959F-A53CE6FA9C59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integrate.SisMed.App", "Integrate.SisMed.App\Integrate.SisMed.App.csproj", "{AA0A8DC3-2E66-4B34-B949-FBDF3DE27F9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,22 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9BF03346-5B0E-46B1-BFF6-D67F39DB5C58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9BF03346-5B0E-46B1-BFF6-D67F39DB5C58}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9BF03346-5B0E-46B1-BFF6-D67F39DB5C58}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9BF03346-5B0E-46B1-BFF6-D67F39DB5C58}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA0A8DC3-2E66-4B34-B949-FBDF3DE27F9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA0A8DC3-2E66-4B34-B949-FBDF3DE27F9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA0A8DC3-2E66-4B34-B949-FBDF3DE27F9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA0A8DC3-2E66-4B34-B949-FBDF3DE27F9B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FB83DA9E-BEC8-477A-87C6-33661AFC84B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB83DA9E-BEC8-477A-87C6-33661AFC84B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB83DA9E-BEC8-477A-87C6-33661AFC84B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB83DA9E-BEC8-477A-87C6-33661AFC84B9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9FFB7C9E-8896-4B0B-AB4F-028E2765A301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9FFB7C9E-8896-4B0B-AB4F-028E2765A301}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FFB7C9E-8896-4B0B-AB4F-028E2765A301}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FFB7C9E-8896-4B0B-AB4F-028E2765A301}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE4EC348-AAE0-4FC5-B9AB-B3AB58379FDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE4EC348-AAE0-4FC5-B9AB-B3AB58379FDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE4EC348-AAE0-4FC5-B9AB-B3AB58379FDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE4EC348-AAE0-4FC5-B9AB-B3AB58379FDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B027B30-95C5-43A3-959F-A53CE6FA9C59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B027B30-95C5-43A3-959F-A53CE6FA9C59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B027B30-95C5-43A3-959F-A53CE6FA9C59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B027B30-95C5-43A3-959F-A53CE6FA9C59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA0A8DC3-2E66-4B34-B949-FBDF3DE27F9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA0A8DC3-2E66-4B34-B949-FBDF3DE27F9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA0A8DC3-2E66-4B34-B949-FBDF3DE27F9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA0A8DC3-2E66-4B34-B949-FBDF3DE27F9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
