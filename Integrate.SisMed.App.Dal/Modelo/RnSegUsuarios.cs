@@ -53,7 +53,7 @@ namespace Integrate.SisMed.App.Dal.Modelo
 				if (!string.IsNullOrEmpty(strMiToken))
 					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
 				
-				HttpResponseMessage response = client.GetAsync("/api/values/" + EntSegUsuarios.StrNombreTabla + "/" + intidsus).Result;
+				HttpResponseMessage response = client.GetAsync(CParametros.strApiTables + EntSegUsuarios.StrNombreTabla + "/" + intidsus).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					var stringData = response.Content.ReadAsStringAsync().Result;
@@ -80,7 +80,7 @@ namespace Integrate.SisMed.App.Dal.Modelo
 				if (!string.IsNullOrEmpty(strMiToken))
 					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
 				
-				HttpResponseMessage response = client.GetAsync("/api/values/" + EntSegUsuarios.StrNombreTabla).Result;
+				HttpResponseMessage response = client.GetAsync(CParametros.strApiTables + EntSegUsuarios.StrNombreTabla).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					var stringData = response.Content.ReadAsStringAsync().Result;
@@ -111,7 +111,7 @@ namespace Integrate.SisMed.App.Dal.Modelo
 				
 				string stringData = JsonConvert.SerializeObject(obj.CreateApiObject());
 				var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");
-				HttpResponseMessage response = client.PostAsync("/api/values/",contentData).Result;
+				HttpResponseMessage response = client.PostAsync(CParametros.strApiTables,contentData).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					var strResult = response.Content.ReadAsStringAsync().Result;
@@ -142,7 +142,7 @@ namespace Integrate.SisMed.App.Dal.Modelo
 				
 				string stringData = JsonConvert.SerializeObject(obj.CreateApiObject());
 				var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");
-				HttpResponseMessage response = client.PutAsync("/api/values/",contentData).Result;
+				HttpResponseMessage response = client.PutAsync(CParametros.strApiTables,contentData).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					var strResult = response.Content.ReadAsStringAsync().Result;
@@ -171,7 +171,7 @@ namespace Integrate.SisMed.App.Dal.Modelo
 				if (!string.IsNullOrEmpty(strMiToken))
 					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
 				
-				HttpResponseMessage response = client.DeleteAsync("/api/values/"+ EntSegUsuarios.StrNombreTabla +"/" + obj.idsus).Result;
+				HttpResponseMessage response = client.DeleteAsync(CParametros.strApiTables+ EntSegUsuarios.StrNombreTabla +"/" + obj.idsus).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					var strResult = response.Content.ReadAsStringAsync().Result;

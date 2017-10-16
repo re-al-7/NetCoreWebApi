@@ -47,13 +47,13 @@ namespace Integrate.SisMed.App.Dal.Modelo
 			var obj = new EntSegRoles();
 			using (HttpClient client = new HttpClient())
 			{
-				client.BaseAddress = new Uri(CParametros.strBaseUri);
+				client.BaseAddress = new Uri(CParametros.StrBaseUri);
 				MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
 				client.DefaultRequestHeaders.Accept.Add(contentType);
 				if (!string.IsNullOrEmpty(strMiToken))
 					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
 				
-				HttpResponseMessage response = client.GetAsync("/api/values/" + EntSegRoles.StrNombreTabla + "/" + introlsro).Result;
+				HttpResponseMessage response = client.GetAsync(CParametros.StrApiTables + EntSegRoles.StrNombreTabla + "/" + introlsro).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					var stringData = response.Content.ReadAsStringAsync().Result;
@@ -74,13 +74,13 @@ namespace Integrate.SisMed.App.Dal.Modelo
 			var data = new List<EntSegRoles>();
 			using (HttpClient client = new HttpClient())
 			{
-				client.BaseAddress = new Uri(CParametros.strBaseUri);
+				client.BaseAddress = new Uri(CParametros.StrBaseUri);
 				MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
 				client.DefaultRequestHeaders.Accept.Add(contentType);
 				if (!string.IsNullOrEmpty(strMiToken))
 					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
 				
-				HttpResponseMessage response = client.GetAsync("/api/values/" + EntSegRoles.StrNombreTabla).Result;
+				HttpResponseMessage response = client.GetAsync(CParametros.StrApiTables + EntSegRoles.StrNombreTabla).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					var stringData = response.Content.ReadAsStringAsync().Result;
@@ -103,7 +103,7 @@ namespace Integrate.SisMed.App.Dal.Modelo
 			bool bProcede = false;
 			using (HttpClient client = new HttpClient())
 			{
-				client.BaseAddress = new Uri(CParametros.strBaseUri);
+				client.BaseAddress = new Uri(CParametros.StrBaseUri);
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 				if (!string.IsNullOrEmpty(strMiToken))
@@ -111,7 +111,7 @@ namespace Integrate.SisMed.App.Dal.Modelo
 				
 				string stringData = JsonConvert.SerializeObject(obj.CreateApiObject());
 				var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");
-				HttpResponseMessage response = client.PostAsync("/api/values/",contentData).Result;
+				HttpResponseMessage response = client.PostAsync(CParametros.StrApiTables,contentData).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					var strResult = response.Content.ReadAsStringAsync().Result;
@@ -134,7 +134,7 @@ namespace Integrate.SisMed.App.Dal.Modelo
 			bool bProcede = false;
 			using (HttpClient client = new HttpClient())
 			{
-				client.BaseAddress = new Uri(CParametros.strBaseUri);
+				client.BaseAddress = new Uri(CParametros.StrBaseUri);
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 				if (!string.IsNullOrEmpty(strMiToken))
@@ -142,7 +142,7 @@ namespace Integrate.SisMed.App.Dal.Modelo
 				
 				string stringData = JsonConvert.SerializeObject(obj.CreateApiObject());
 				var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");
-				HttpResponseMessage response = client.PutAsync("/api/values/",contentData).Result;
+				HttpResponseMessage response = client.PutAsync(CParametros.StrApiTables,contentData).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					var strResult = response.Content.ReadAsStringAsync().Result;
@@ -165,13 +165,13 @@ namespace Integrate.SisMed.App.Dal.Modelo
 			bool bProcede = false;
 			using (HttpClient client = new HttpClient())
 			{
-				client.BaseAddress = new Uri(CParametros.strBaseUri);
+				client.BaseAddress = new Uri(CParametros.StrBaseUri);
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 				if (!string.IsNullOrEmpty(strMiToken))
 					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
 				
-				HttpResponseMessage response = client.DeleteAsync("/api/values/"+ EntSegRoles.StrNombreTabla +"/" + obj.rolsro).Result;
+				HttpResponseMessage response = client.DeleteAsync(CParametros.StrApiTables+ EntSegRoles.StrNombreTabla +"/" + obj.rolsro).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					var strResult = response.Content.ReadAsStringAsync().Result;
