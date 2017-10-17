@@ -30,13 +30,6 @@ namespace Integrate.SisMed.App.Dal.Modelo
 {
 	public class RnSegRoles
 	{
-		private string strMiToken = "";
-		
-		public RnSegRoles(string strToken = "")
-		{
-			this.strMiToken = strToken;
-		}
-		
 		/// <summary>
 		/// Funcion que obtiene los datos de un Objeto a partir de la llave primaria
 		/// </summary>
@@ -50,8 +43,8 @@ namespace Integrate.SisMed.App.Dal.Modelo
 				client.BaseAddress = new Uri(CParametros.StrBaseUri);
 				MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
 				client.DefaultRequestHeaders.Accept.Add(contentType);
-				if (!string.IsNullOrEmpty(strMiToken))
-					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
+				if (!string.IsNullOrEmpty(CApiAuth.StrToken))
+					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", CApiAuth.StrToken);
 				
 				HttpResponseMessage response = client.GetAsync(CParametros.StrApiTables + EntSegRoles.StrNombreTabla + "/" + introlsro).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
@@ -77,8 +70,8 @@ namespace Integrate.SisMed.App.Dal.Modelo
 				client.BaseAddress = new Uri(CParametros.StrBaseUri);
 				MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
 				client.DefaultRequestHeaders.Accept.Add(contentType);
-				if (!string.IsNullOrEmpty(strMiToken))
-					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
+				if (!string.IsNullOrEmpty(CApiAuth.StrToken))
+					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", CApiAuth.StrToken);
 				
 				HttpResponseMessage response = client.GetAsync(CParametros.StrApiTables + EntSegRoles.StrNombreTabla).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
@@ -106,8 +99,8 @@ namespace Integrate.SisMed.App.Dal.Modelo
 				client.BaseAddress = new Uri(CParametros.StrBaseUri);
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-				if (!string.IsNullOrEmpty(strMiToken))
-					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
+				if (!string.IsNullOrEmpty(CApiAuth.StrToken))
+					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", CApiAuth.StrToken);
 				
 				string stringData = JsonConvert.SerializeObject(obj.CreateApiObject());
 				var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");
@@ -137,8 +130,8 @@ namespace Integrate.SisMed.App.Dal.Modelo
 				client.BaseAddress = new Uri(CParametros.StrBaseUri);
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-				if (!string.IsNullOrEmpty(strMiToken))
-					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
+				if (!string.IsNullOrEmpty(CApiAuth.StrToken))
+					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", CApiAuth.StrToken);
 				
 				string stringData = JsonConvert.SerializeObject(obj.CreateApiObject());
 				var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");
@@ -168,8 +161,8 @@ namespace Integrate.SisMed.App.Dal.Modelo
 				client.BaseAddress = new Uri(CParametros.StrBaseUri);
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-				if (!string.IsNullOrEmpty(strMiToken))
-					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
+				if (!string.IsNullOrEmpty(CApiAuth.StrToken))
+					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", CApiAuth.StrToken);
 				
 				HttpResponseMessage response = client.DeleteAsync(CParametros.StrApiTables+ EntSegRoles.StrNombreTabla +"/" + obj.rolsro).Result;
 				if (response.StatusCode == HttpStatusCode.OK)

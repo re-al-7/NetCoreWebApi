@@ -30,13 +30,6 @@ namespace Integrate.SisMed.App.Dal.Modelo
 {
 	public class RnSegUsuarios
 	{
-		private string strMiToken = "";
-		
-		public RnSegUsuarios(string strToken = "")
-		{
-			this.strMiToken = strToken;
-		}
-		
 		/// <summary>
 		/// Funcion que obtiene los datos de un Objeto a partir de la llave primaria
 		/// </summary>
@@ -47,13 +40,13 @@ namespace Integrate.SisMed.App.Dal.Modelo
 			var obj = new EntSegUsuarios();
 			using (HttpClient client = new HttpClient())
 			{
-				client.BaseAddress = new Uri(CParametros.strBaseUri);
+				client.BaseAddress = new Uri(CParametros.StrBaseUri);
 				MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
 				client.DefaultRequestHeaders.Accept.Add(contentType);
-				if (!string.IsNullOrEmpty(strMiToken))
-					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
+				if (!string.IsNullOrEmpty(CApiAuth.StrToken))
+					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", CApiAuth.StrToken);
 				
-				HttpResponseMessage response = client.GetAsync(CParametros.strApiTables + EntSegUsuarios.StrNombreTabla + "/" + intidsus).Result;
+				HttpResponseMessage response = client.GetAsync(CParametros.StrApiTables + EntSegUsuarios.StrNombreTabla + "/" + intidsus).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					var stringData = response.Content.ReadAsStringAsync().Result;
@@ -74,13 +67,13 @@ namespace Integrate.SisMed.App.Dal.Modelo
 			var data = new List<EntSegUsuarios>();
 			using (HttpClient client = new HttpClient())
 			{
-				client.BaseAddress = new Uri(CParametros.strBaseUri);
+				client.BaseAddress = new Uri(CParametros.StrBaseUri);
 				MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
 				client.DefaultRequestHeaders.Accept.Add(contentType);
-				if (!string.IsNullOrEmpty(strMiToken))
-					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
+				if (!string.IsNullOrEmpty(CApiAuth.StrToken))
+					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", CApiAuth.StrToken);
 				
-				HttpResponseMessage response = client.GetAsync(CParametros.strApiTables + EntSegUsuarios.StrNombreTabla).Result;
+				HttpResponseMessage response = client.GetAsync(CParametros.StrApiTables + EntSegUsuarios.StrNombreTabla).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					var stringData = response.Content.ReadAsStringAsync().Result;
@@ -103,15 +96,15 @@ namespace Integrate.SisMed.App.Dal.Modelo
 			bool bProcede = false;
 			using (HttpClient client = new HttpClient())
 			{
-				client.BaseAddress = new Uri(CParametros.strBaseUri);
+				client.BaseAddress = new Uri(CParametros.StrBaseUri);
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-				if (!string.IsNullOrEmpty(strMiToken))
-					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
+				if (!string.IsNullOrEmpty(CApiAuth.StrToken))
+					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", CApiAuth.StrToken);
 				
 				string stringData = JsonConvert.SerializeObject(obj.CreateApiObject());
 				var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");
-				HttpResponseMessage response = client.PostAsync(CParametros.strApiTables,contentData).Result;
+				HttpResponseMessage response = client.PostAsync(CParametros.StrApiTables,contentData).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					var strResult = response.Content.ReadAsStringAsync().Result;
@@ -134,15 +127,15 @@ namespace Integrate.SisMed.App.Dal.Modelo
 			bool bProcede = false;
 			using (HttpClient client = new HttpClient())
 			{
-				client.BaseAddress = new Uri(CParametros.strBaseUri);
+				client.BaseAddress = new Uri(CParametros.StrBaseUri);
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-				if (!string.IsNullOrEmpty(strMiToken))
-					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
+				if (!string.IsNullOrEmpty(CApiAuth.StrToken))
+					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", CApiAuth.StrToken);
 				
 				string stringData = JsonConvert.SerializeObject(obj.CreateApiObject());
 				var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");
-				HttpResponseMessage response = client.PutAsync(CParametros.strApiTables,contentData).Result;
+				HttpResponseMessage response = client.PutAsync(CParametros.StrApiTables,contentData).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					var strResult = response.Content.ReadAsStringAsync().Result;
@@ -165,13 +158,13 @@ namespace Integrate.SisMed.App.Dal.Modelo
 			bool bProcede = false;
 			using (HttpClient client = new HttpClient())
 			{
-				client.BaseAddress = new Uri(CParametros.strBaseUri);
+				client.BaseAddress = new Uri(CParametros.StrBaseUri);
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-				if (!string.IsNullOrEmpty(strMiToken))
-					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strMiToken);
+				if (!string.IsNullOrEmpty(CApiAuth.StrToken))
+					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", CApiAuth.StrToken);
 				
-				HttpResponseMessage response = client.DeleteAsync(CParametros.strApiTables+ EntSegUsuarios.StrNombreTabla +"/" + obj.idsus).Result;
+				HttpResponseMessage response = client.DeleteAsync(CParametros.StrApiTables+ EntSegUsuarios.StrNombreTabla +"/" + obj.idsus).Result;
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					var strResult = response.Content.ReadAsStringAsync().Result;

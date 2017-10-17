@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CApi.cs" />
+    <Compile Include="CApiAuth.cs" />
     <Compile Include="CApiExcepcion.cs" />
     <Compile Include="CParametros.cs" />
     <Compile Include="CApiObject.cs" />

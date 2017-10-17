@@ -12,67 +12,47 @@ namespace Integrate.SisMed.App.Console
 {
     class Program
     {
-        private static string strBaseUri = "http://localhost:59386";
-        private static string strToken = "";
-
         static void Main(string[] args)
         {
             //Primero nos autenticamos
-            using (HttpClient client = new HttpClient())
+            string strUsuario = "deferarib";
+            string strPassword = "Desa2016";
+
+            if (CApiAuth.GetToken(strUsuario, strPassword))
             {
-                var formContent = new FormUrlEncodedContent(new[]
+                //Obtener los datos
+                try
                 {
-                    new KeyValuePair<string, string>("username", "deferarib"),
-                    new KeyValuePair<string, string>("password", "Desa2016")
-                });
+                    //Obtenemos lista
+                    var rn = new RnSegMensajeserror();
+                    List<EntSegMensajeserror> lista = rn.ObtenerLista();
+                    System.Console.WriteLine("Lista: " + lista.Count);
+                    System.Console.WriteLine("-------------------------------");
 
-                client.BaseAddress = new Uri(strBaseUri);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    //EntSegMensajeserror obj = rn.ObtenerObjeto(1);
+                    //Console.WriteLine("Objeto: " + obj.accionsme);
+                    //Console.WriteLine("-------------------------------");
 
-                HttpResponseMessage response = client.PostAsync
-                ("/api/token",
-                    formContent).Result;
-                if (response.StatusCode == HttpStatusCode.OK)
+                    //obj.apiestadosme = "R. Alonzo";
+                    //rn.Update(obj);
+                }
+                catch (Exception exp)
                 {
-                    dynamic stResult = JObject.Parse(response.Content.ReadAsStringAsync().Result);
-
-                    strToken = stResult.access_token;
+                    if (exp is CApiExcepcion)
+                    {
+                        var miExp = (CApiExcepcion)exp;
+                        System.Console.WriteLine(miExp.error);
+                        System.Console.WriteLine(miExp.causa);
+                        System.Console.WriteLine(miExp.accion);
+                        System.Console.WriteLine(miExp.comentario);
+                        System.Console.WriteLine(miExp.origen);
+                    }
+                    else
+                        System.Console.WriteLine(exp);
                 }
             }
-
-            //Obtener los datos
-            try
-            {
-                //Obtenemos lista
-                var rn = new RnSegMensajeserror(strToken);
-                List<EntSegMensajeserror> lista = rn.ObtenerLista();
-                System.Console.WriteLine("Lista: " + lista.Count);
-                System.Console.WriteLine("-------------------------------");
-
-                //EntSegMensajeserror obj = rn.ObtenerObjeto(1);
-                //Console.WriteLine("Objeto: " + obj.accionsme);
-                //Console.WriteLine("-------------------------------");
-
-                //obj.apiestadosme = "R. Alonzo";
-                //rn.Update(obj);
-            }
-            catch (Exception exp)
-            {
-                if (exp is CApiExcepcion)
-                {
-                    var miExp = (CApiExcepcion)exp;
-                    System.Console.WriteLine(miExp.error);
-                    System.Console.WriteLine(miExp.causa);
-                    System.Console.WriteLine(miExp.accion);
-                    System.Console.WriteLine(miExp.comentario);
-                    System.Console.WriteLine(miExp.origen);
-                }
-                else
-                    System.Console.WriteLine(exp);                
-            }
-
-
+            
+            
             System.Console.ReadKey();
         }
     }
